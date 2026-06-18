@@ -1,0 +1,38 @@
+name: React Vite CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  diagnostics-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 签出代码 (Checkout Repository)
+        uses: actions/checkout@v4
+
+      - name: 配置 Node.js 环境 (Setup Node.js Environment)
+        uses: actions/setup-node@v4
+        with:
+          # 严格对齐 package.json 中的 engines 声明，避免版本不一致导致的构建失败
+          node-version: '22.x' 
+          # 开启包管理器缓存，大幅度减少后续运行时的依赖下载时间
+          cache: 'npm' 
+
+      - name: 安装项目依赖 (Install Dependencies)
+        # 使用 npm ci 而不是 npm install。
+        # npm ci 就像是严格的无菌操作（Sterile Technique），它会绝对忠实于 package-lock.json，
+        # 不会擅自更新任何子依赖的版本，保证 CI 环境与本地开发环境的绝对一致性。
+        run: npm ci
+
+      - name: 静态类型检查 (Static Type Checking)
+        # 提前进行类型扫描，如果存在类型不匹配的错误，工作流会在这里立刻阻断并报错
+        run: npm run typecheck
+
+      - name: 执行生产环境构建 (Build Production Artifacts)
+        # 执行 Vite 的生产环境打包，验证代码是否能成功转化为最终的静态资源
+        run: npm run build
