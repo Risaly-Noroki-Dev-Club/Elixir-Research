@@ -36,3 +36,4 @@ jobs:
       - name: 执行生产环境构建 (Build Production Artifacts)
         # 执行 Vite 的生产环境打包，验证代码是否能成功转化为最终的静态资源
         run: npm run build
+        # 让我们一起摇摆
