@@ -1,0 +1,277 @@
+{
+  "common": {
+    "close": "關閉",
+    "search": "搜尋",
+    "retryRegistry": "重試註冊表",
+    "ready": "可用",
+    "notAvailable": "未開放",
+    "cancel": "取消",
+    "now": "現在"
+  },
+  "topbar": {
+    "support": "支援",
+    "switchLanguage": "切換語言",
+    "theme": "切換明暗模式",
+    "accent": "調整主題色",
+    "account": "帳戶",
+    "languageMenu": "語言",
+    "languageChanged": "語言已切換為 {label}",
+    "locales": {
+      "en": "英文",
+      "zhHans": "簡體中文",
+      "zhHant": "繁體中文",
+      "ja": "日文"
+    }
+  },
+  "nav": {
+    "quickSearch": "快速搜尋...",
+    "accountHome": "帳戶首頁",
+    "drugLibrary": "藥物庫",
+    "library": "藥物列表",
+    "fdaData": "FDA 資料",
+    "labelSearch": "標籤搜尋",
+    "pkExtraction": "PK 參數提取",
+    "mappingReview": "映射審核",
+    "medication": "用藥",
+    "courseTracker": "療程追蹤",
+    "medicationReminders": "用藥提醒",
+    "observe": "觀察",
+    "pkPreview": "PK 預覽",
+    "interactionRisk": "交互作用風險",
+    "build": "構建",
+    "fdaExtraction": "FDA 提取",
+    "reportTemplates": "報告模板",
+    "privacyKeys": "隱私金鑰",
+    "help": "幫助",
+    "helpOverview": "總覽",
+    "helpDrugLibrary": "藥物庫",
+    "helpCourseTracker": "療程追蹤",
+    "helpPkPreview": "PK 預覽",
+    "helpDataOps": "資料與設定"
+  },
+  "app": {
+    "unknownRegistryError": "未知註冊表錯誤",
+    "actionTriggered": "已觸發操作",
+    "navigationPlaceholder": "導航占位",
+    "navigationUpdated": "導航已切換",
+    "navigationGroupUpdated": "導航分組已切換",
+    "notImplemented": "{label} 目前功能尚未實作。",
+    "medicationLogAdded": "用藥記錄已新增",
+    "medicationLogUpdated": "用藥記錄已更新",
+    "medicationLogDeleted": "用藥記錄已刪除",
+    "templateSaved": "長期用藥模板已保存",
+    "historyDeleted": "歷史資料已刪除",
+    "loadingRegistry": "正在載入藥物註冊表...",
+    "registryUnavailable": "藥物註冊表不可用：",
+    "registryEmpty": "藥物註冊表為空。",
+    "historyDeletedDetail": "{drug} / {count} 筆記錄"
+  },
+  "quickSearch": {
+    "title": "快速搜尋",
+    "subtitle": "跳轉到模組",
+    "placeholder": "搜尋英文或中文關鍵詞...",
+    "noResults": "沒有模組命中這組關鍵詞。",
+    "entries": {
+      "library": {
+        "title": "藥物庫",
+        "description": "瀏覽整理後的註冊表與本地映射中繼資料。",
+        "keywords": [
+          "藥物",
+          "藥庫",
+          "註冊表",
+          "映射",
+          "藥品",
+          "fda"
+        ]
+      },
+      "courseTracker": {
+        "title": "療程追蹤",
+        "description": "記錄用藥事件並檢視劑量歷史。",
+        "keywords": [
+          "療程",
+          "追蹤",
+          "劑量",
+          "歷史",
+          "記錄",
+          "用藥"
+        ]
+      },
+      "medicationReminders": {
+        "title": "用藥提醒",
+        "description": "檢視提醒策略與下一劑提示。",
+        "keywords": [
+          "提醒",
+          "警示",
+          "下一劑",
+          "計畫",
+          "用藥"
+        ]
+      },
+      "labelSearch": {
+        "title": "標籤搜尋",
+        "description": "標籤檢索流程的占位入口。",
+        "keywords": [
+          "標籤",
+          "搜尋",
+          "檢索",
+          "說明書",
+          "fda"
+        ]
+      },
+      "pkExtraction": {
+        "title": "PK 參數提取",
+        "description": "PK 參數提取工具的占位入口。",
+        "keywords": [
+          "pk",
+          "參數",
+          "提取",
+          "曲線",
+          "模型"
+        ]
+      },
+      "mappingReview": {
+        "title": "映射審核",
+        "description": "註冊表映射審核的占位入口。",
+        "keywords": [
+          "映射",
+          "審核",
+          "審查",
+          "註冊表",
+          "批准"
+        ]
+      },
+      "pkPreview": {
+        "title": "PK 預覽",
+        "description": "預覽 PK 曲線與模擬參數。",
+        "keywords": [
+          "pk",
+          "預覽",
+          "模擬",
+          "曲線",
+          "濃度"
+        ]
+      },
+      "interactionRisk": {
+        "title": "交互作用風險",
+        "description": "交互作用風險分析的占位入口。",
+        "keywords": [
+          "交互作用",
+          "風險",
+          "警告",
+          "分析"
+        ]
+      }
+    }
+  },
+  "status": {
+    "seed": "種子",
+    "needs-review": "待審核",
+    "reviewed": "已審核",
+    "rejected": "已駁回"
+  },
+  "drugLibrary": {
+    "title": "藥物庫",
+    "copy": "維護本地整理映射，並讓所有抽取到的 PK 參數先經過審核後再使用。",
+    "importJson": "匯入 JSON",
+    "export": "匯出",
+    "addDrug": "新增藥物",
+    "cardFocused": "藥物卡片已啟用",
+    "filters": {
+      "all": "全部狀態",
+      "needs-review": "待審核",
+      "reviewed": "已審核",
+      "seed": "僅種子",
+      "rejected": "已駁回",
+      "controlled-only": "僅受控藥物"
+    },
+    "searchCaption": "本地註冊表搜尋",
+    "searchPlaceholder": "搜尋通用名、商品名、別名或中文關鍵詞...",
+    "table": {
+      "drug": "藥物",
+      "status": "狀態",
+      "fdaMapping": "FDA 映射",
+      "plan": "方案"
+    },
+    "loadingSearch": "正在載入註冊表...",
+    "searchFailed": "搜尋失敗：",
+    "unmappedChinese": "目前還沒有這個中文藥名的本地映射。如果 SQL 映射表或 openFDA 回退可解析，我們會繼續補全候選項。",
+    "noMatches": "沒有命中的本地藥物。",
+    "resultsCount": "{count} 條本地結果",
+    "openFdaQuery": "openFDA 查詢",
+    "searchFda": "搜尋 openFDA",
+    "resolvedMapping": "映射解析",
+    "remoteTitle": "從 openFDA 搜尋並新增",
+    "remoteCopy": "當本地註冊表沒有命中時，系統會先透過 SQL 映射表解析別名，再使用規範英文名查詢 openFDA，並允許你保存為本地草稿。",
+    "remoteIdle": "輸入藥物關鍵詞後，這裡會同時顯示映射解析結果和 openFDA 候選項。",
+    "remoteLoading": "正在搜尋 openFDA 目錄...",
+    "remoteEmpty": "沒有符合當前查詢的 openFDA 候選項。",
+    "remoteError": "openFDA 搜尋失敗：",
+    "remoteResolved": "已透過映射將「{query}」解析為「{canonical}」，命中別名：{matched}",
+    "remoteUnmapped": "這條中文查詢在 SQL 映射表中仍未收錄。請先補充映射別名，再查詢 openFDA。",
+    "addFromOpenFda": "新增為草稿",
+    "addedDraft": "已從 openFDA 新增草稿藥物",
+    "addedDraftDetail": "{brand} / {generic}",
+    "draftBadge": "草稿",
+    "mappingSource": "命中別名",
+    "manufacturer": "廠商",
+    "route": "給藥途徑",
+    "dosageForm": "劑型",
+    "productNdc": "產品 NDC",
+    "fdaPreview": "openFDA 預覽",
+    "fetchLabel": "拉取標籤",
+    "actions": {
+      "more": "更多操作",
+      "historyOpened": "歷史面板已開啟",
+      "historyOpenedDetail": "查看 {drug} 的用藥歷史",
+      "viewHistory": "查看歷史",
+      "records": "{count} 條記錄",
+      "historyDeleteRequested": "歷史刪除請求已觸發",
+      "historyDeleteDetail": "刪除 {drug} 的 {count} 條歷史記錄",
+      "deleteHistory": "刪除歷史",
+      "deleteHistoryHint": "僅刪除該藥物的記錄"
+    },
+    "plan": {
+      "noTemplate": "尚未保存模板",
+      "updated": "方案已切換",
+      "updatedDetail": "{drug} 已切換為按次記錄",
+      "opened": "長期用藥編輯器已開啟",
+      "openedDetail": "{drug} 現在可以編輯長期用藥模板",
+      "needsMoreData": "長期模板需要補全",
+      "enabled": "長期用藥模板已啟用",
+      "medicationPlan": "{drug} 用藥方案",
+      "perDose": "按次",
+      "perDoseLogging": "按次記錄",
+      "longTerm": "長期",
+      "templateLabel": "模板名",
+      "doseMg": "劑量 mg",
+      "intervalHours": "間隔 h",
+      "route": "途徑",
+      "oral": "口服",
+      "injection": "注射",
+      "formulationNote": "劑型 / 備註",
+      "saveEnable": "保存並啟用模板"
+    },
+    "addPanel": {
+      "title": "新增藥物",
+      "genericName": "通用名",
+      "brandName": "商品名",
+      "formulation": "劑型",
+      "reviewStatus": "審核狀態",
+      "queueReview": "加入映射審核佇列",
+      "genericPlaceholder": "例如：methylphenidate hydrochloride",
+      "brandPlaceholder": "例如：Concerta"
+    },
+    "fdaPanel": {
+      "title": "FDA 搜尋",
+      "copy": "每個藥物都會先經過本地整理映射表，再進入 openFDA 的 NDC 與標籤查詢。抽取結果不會直接跳過審核。"
+    },
+    "safetyPanel": {
+      "title": "安全與提醒",
+      "controlled": "受控藥物預設進入二次確認與臨床審核流程。",
+      "standard": "常規藥物仍然保留本地確認、歷史記錄與提醒策略。",
+      "seedCount": "當前嵌入註冊表中可直接使用或作為草稿補錄的藥物共有 {count} 個，方案列可直接保存長期用藥模板。"
+    }
+  },
+  "pkPreview": {},
+  "courseTracker": {}
+}

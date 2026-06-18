@@ -1,0 +1,283 @@
+{
+  "common": {
+    "close": "閉じる",
+    "search": "検索",
+    "retryRegistry": "レジストリを再試行",
+    "ready": "利用可能",
+    "notAvailable": "未提供",
+    "cancel": "キャンセル",
+    "now": "現在"
+  },
+  "topbar": {
+    "support": "サポート",
+    "switchLanguage": "言語を切り替え",
+    "theme": "ライト / ダークを切り替え",
+    "accent": "アクセントカラーを調整",
+    "account": "アカウント",
+    "languageMenu": "言語",
+    "languageChanged": "言語を {label} に切り替えました",
+    "locales": {
+      "en": "英語",
+      "zhHans": "簡体字中国語",
+      "zhHant": "繁体字中国語",
+      "ja": "日本語"
+    }
+  },
+  "nav": {
+    "quickSearch": "クイック検索...",
+    "accountHome": "アカウントホーム",
+    "drugLibrary": "薬物ライブラリ",
+    "library": "ライブラリ",
+    "fdaData": "FDA データ",
+    "labelSearch": "ラベル検索",
+    "pkExtraction": "PK 抽出",
+    "mappingReview": "マッピング審査",
+    "medication": "服薬",
+    "courseTracker": "コーストラッカー",
+    "medicationReminders": "服薬リマインダー",
+    "observe": "観察",
+    "pkPreview": "PK プレビュー",
+    "interactionRisk": "相互作用リスク",
+    "build": "構築",
+    "fdaExtraction": "FDA 抽出",
+    "reportTemplates": "レポートテンプレート",
+    "privacyKeys": "プライバシーキー",
+    "help": "ヘルプ",
+    "helpOverview": "概要",
+    "helpDrugLibrary": "薬物ライブラリ",
+    "helpCourseTracker": "コーストラッカー",
+    "helpPkPreview": "PK プレビュー",
+    "helpDataOps": "データと設定"
+  },
+  "app": {
+    "unknownRegistryError": "不明なレジストリエラー",
+    "actionTriggered": "操作を実行しました",
+    "navigationPlaceholder": "ナビゲーションのプレースホルダー",
+    "navigationUpdated": "ナビゲーションを切り替えました",
+    "navigationGroupUpdated": "ナビゲーショングループを切り替えました",
+    "notImplemented": "{label} はまだ実装されていません。",
+    "medicationLogAdded": "服薬ログを追加しました",
+    "medicationLogUpdated": "服薬ログを更新しました",
+    "medicationLogDeleted": "服薬ログを削除しました",
+    "templateSaved": "長期服薬テンプレートを保存しました",
+    "historyDeleted": "履歴を削除しました",
+    "loadingRegistry": "薬物レジストリを読み込み中...",
+    "registryUnavailable": "薬物レジストリを利用できません：",
+    "registryEmpty": "薬物レジストリは空です。",
+    "historyDeletedDetail": "{drug} / {count} 件"
+  },
+  "quickSearch": {
+    "title": "クイック検索",
+    "subtitle": "モジュールへ移動",
+    "placeholder": "英語または中国語のキーワードを検索...",
+    "noResults": "このキーワードセットに一致するモジュールはありません。",
+    "entries": {
+      "library": {
+        "title": "薬物ライブラリ",
+        "description": "整理済みのレジストリとローカルマッピングのメタデータを参照します。",
+        "keywords": [
+          "drug",
+          "library",
+          "registry",
+          "mapping",
+          "fda",
+          "openfda",
+          "薬",
+          "ライブラリ"
+        ]
+      },
+      "courseTracker": {
+        "title": "コーストラッカー",
+        "description": "服薬イベントを記録し、用量履歴を確認します。",
+        "keywords": [
+          "course",
+          "tracker",
+          "dose",
+          "history",
+          "log",
+          "medication",
+          "履歴",
+          "服薬"
+        ]
+      },
+      "medicationReminders": {
+        "title": "服薬リマインダー",
+        "description": "リマインダーポリシーと次回投与の通知を確認します。",
+        "keywords": [
+          "reminder",
+          "alert",
+          "next dose",
+          "schedule",
+          "medication",
+          "リマインダー",
+          "通知"
+        ]
+      },
+      "labelSearch": {
+        "title": "ラベル検索",
+        "description": "ラベル参照ワークフロー用のプレースホルダーです。",
+        "keywords": [
+          "label",
+          "search",
+          "openfda",
+          "fda",
+          "lookup"
+        ]
+      },
+      "pkExtraction": {
+        "title": "PK 抽出",
+        "description": "PK 抽出ツール用のプレースホルダーです。",
+        "keywords": [
+          "pk",
+          "extraction",
+          "parameter",
+          "curve",
+          "model"
+        ]
+      },
+      "mappingReview": {
+        "title": "マッピング審査",
+        "description": "レジストリマッピング審査用のプレースホルダーです。",
+        "keywords": [
+          "mapping",
+          "review",
+          "registry",
+          "audit",
+          "approval"
+        ]
+      },
+      "pkPreview": {
+        "title": "PK プレビュー",
+        "description": "PK 曲線とシミュレーション設定を確認します。",
+        "keywords": [
+          "pk",
+          "preview",
+          "simulation",
+          "curve",
+          "concentration"
+        ]
+      },
+      "interactionRisk": {
+        "title": "相互作用リスク",
+        "description": "相互作用リスク分析用のプレースホルダーです。",
+        "keywords": [
+          "interaction",
+          "risk",
+          "warning",
+          "analysis"
+        ]
+      }
+    }
+  },
+  "status": {
+    "seed": "シード",
+    "needs-review": "要レビュー",
+    "reviewed": "レビュー済み",
+    "rejected": "却下"
+  },
+  "drugLibrary": {
+    "title": "薬物ライブラリ",
+    "copy": "ローカルで整理したマッピングを維持し、抽出した PK パラメータはレビュー後にのみ利用します。",
+    "importJson": "JSON を取り込む",
+    "export": "エクスポート",
+    "addDrug": "薬物を追加",
+    "cardFocused": "薬物カードをフォーカスしました",
+    "filters": {
+      "all": "すべての状態",
+      "needs-review": "要レビュー",
+      "reviewed": "レビュー済み",
+      "seed": "シードのみ",
+      "rejected": "却下済み",
+      "controlled-only": "規制薬のみ"
+    },
+    "searchCaption": "ローカルレジストリ検索",
+    "searchPlaceholder": "一般名、ブランド名、別名、または中国語キーワードを検索...",
+    "table": {
+      "drug": "薬物",
+      "status": "状態",
+      "fdaMapping": "FDA マッピング",
+      "plan": "プラン"
+    },
+    "loadingSearch": "レジストリを読み込み中...",
+    "searchFailed": "検索に失敗しました：",
+    "unmappedChinese": "この中国語薬名のローカルマッピングはまだありません。SQL マッピング表または openFDA フォールバックで解決できる場合は候補を補完します。",
+    "noMatches": "一致するローカル薬物はありません。",
+    "resultsCount": "ローカル結果 {count} 件",
+    "openFdaQuery": "openFDA クエリ",
+    "searchFda": "openFDA を検索",
+    "resolvedMapping": "マッピング解決",
+    "remoteTitle": "openFDA から検索して追加",
+    "remoteCopy": "ローカルレジストリに行が存在しない場合、まず SQL マッピング表で別名を解決し、正規の英語名で openFDA を検索してローカル草稿として保存できます。",
+    "remoteIdle": "薬物キーワードを入力すると、ここにマッピング解決結果と openFDA 候補が表示されます。",
+    "remoteLoading": "openFDA カタログを検索中...",
+    "remoteEmpty": "このクエリに一致する openFDA 候補はありません。",
+    "remoteError": "openFDA 検索に失敗しました：",
+    "remoteResolved": "「{query}」をマッピングにより「{canonical}」へ解決しました。一致した別名: {matched}",
+    "remoteUnmapped": "この中国語クエリはまだ SQL マッピング表にありません。別名を追加してから openFDA を検索してください。",
+    "addFromOpenFda": "草稿として追加",
+    "addedDraft": "openFDA から草稿薬物を追加しました",
+    "addedDraftDetail": "{brand} / {generic}",
+    "draftBadge": "草稿",
+    "mappingSource": "一致した別名",
+    "manufacturer": "製造元",
+    "route": "投与経路",
+    "dosageForm": "剤形",
+    "productNdc": "製品 NDC",
+    "fdaPreview": "openFDA プレビュー",
+    "fetchLabel": "ラベル取得",
+    "actions": {
+      "more": "その他の操作",
+      "historyOpened": "履歴パネルを開きました",
+      "historyOpenedDetail": "{drug} の服薬履歴を確認",
+      "viewHistory": "履歴を見る",
+      "records": "{count} 件",
+      "historyDeleteRequested": "履歴削除リクエストを送信しました",
+      "historyDeleteDetail": "{drug} の履歴 {count} 件を削除",
+      "deleteHistory": "履歴を削除",
+      "deleteHistoryHint": "この薬物の記録のみ削除されます"
+    },
+    "plan": {
+      "noTemplate": "保存済みテンプレートなし",
+      "updated": "プランを更新しました",
+      "updatedDetail": "{drug} は都度記録へ切り替わりました",
+      "opened": "長期服薬エディタを開きました",
+      "openedDetail": "{drug} の長期服薬テンプレートを編集できます",
+      "needsMoreData": "長期テンプレートには追加データが必要です",
+      "enabled": "長期服薬テンプレートを有効にしました",
+      "medicationPlan": "{drug} の服薬プラン",
+      "perDose": "都度",
+      "perDoseLogging": "都度記録",
+      "longTerm": "長期",
+      "templateLabel": "テンプレート名",
+      "doseMg": "用量 mg",
+      "intervalHours": "間隔 h",
+      "route": "経路",
+      "oral": "経口",
+      "injection": "注射",
+      "formulationNote": "剤形 / メモ",
+      "saveEnable": "保存して有効化"
+    },
+    "addPanel": {
+      "title": "薬物を追加",
+      "genericName": "一般名",
+      "brandName": "ブランド名",
+      "formulation": "剤形",
+      "reviewStatus": "レビュー状態",
+      "queueReview": "マッピング審査キューへ追加",
+      "genericPlaceholder": "例: methylphenidate hydrochloride",
+      "brandPlaceholder": "例: Concerta"
+    },
+    "fdaPanel": {
+      "title": "FDA 検索",
+      "copy": "各薬物は openFDA の NDC やラベル検索より前に、必ずローカル整理マッピング表で解決されます。抽出データがレビューを飛ばすことはありません。"
+    },
+    "safetyPanel": {
+      "title": "安全性とアラート",
+      "controlled": "規制薬は二次確認と臨床レビューを初期設定とします。",
+      "standard": "一般薬でもローカル確認、履歴、リマインダーポリシーは保持されます。",
+      "seedCount": "現在の埋め込みレジストリには、そのまま使える薬物または草稿として追加できる薬物が {count} 件あり、プラン列から長期服薬テンプレートを直接保存できます。"
+    }
+  },
+  "pkPreview": {},
+  "courseTracker": {}
+}

@@ -1,14 +1,16 @@
 import type { NotFoundContext } from "../../app/types";
+import { useI18n } from "../../i18n/I18nProvider";
 
 export function NotFoundPage({ context, onBack }: { context: NotFoundContext; onBack: () => void }) {
+  const { tx } = useI18n();
   const browserStatus = getBrowserStatus();
 
   return (
     <div className="not-found-page">
       <div className="not-found-card">
         <span className="not-found-code">404</span>
-        <h1>功能还没有接入</h1>
-        <p>这个按钮已经有点击交互，但当前版本没有对应页面。后续模块完成后会替换这里。</p>
+        <h1>{tx({ en: "This module is not wired yet", zh: "功能还没有接入" })}</h1>
+        <p>{tx({ en: "The interaction exists, but this build does not have a real destination page yet.", zh: "这个按钮已经接上交互了，但当前版本还没有对应页面。" })}</p>
         <div className="trace-grid">
           <TraceItem label="module" value={context.module} />
           <TraceItem label="action" value={context.action} />
@@ -20,7 +22,7 @@ export function NotFoundPage({ context, onBack }: { context: NotFoundContext; on
           <TraceItem label="storage" value={browserStatus.storage} />
         </div>
         <button className="primary-button" onClick={onBack}>
-          返回药物库
+          {tx({ en: "Back to Drug Library", zh: "返回药物库" })}
         </button>
       </div>
     </div>

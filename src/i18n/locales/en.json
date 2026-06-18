@@ -1,0 +1,520 @@
+{
+  "common": {
+    "close": "Close",
+    "search": "Search",
+    "retryRegistry": "Retry registry",
+    "ready": "Ready",
+    "notAvailable": "N/A",
+    "cancel": "Cancel",
+    "now": "Now"
+  },
+  "topbar": {
+    "support": "Support",
+    "switchLanguage": "Switch language",
+    "theme": "Toggle light and dark mode",
+    "accent": "Adjust accent color",
+    "account": "Account",
+    "languageMenu": "Language",
+    "languageChanged": "Language switched to {label}",
+    "locales": {
+      "en": "English",
+      "zhHans": "Simplified Chinese",
+      "zhHant": "Traditional Chinese",
+      "ja": "Japanese"
+    }
+  },
+  "nav": {
+    "quickSearch": "Quick Search...",
+    "accountHome": "Account Home",
+    "drugLibrary": "Drug Library",
+    "library": "Library",
+    "fdaData": "FDA Data",
+    "labelSearch": "Label Search",
+    "pkExtraction": "PK Extraction",
+    "mappingReview": "Mapping Review",
+    "medication": "Medication",
+    "courseTracker": "Course Tracker",
+    "medicationReminders": "Medication Reminders",
+    "observe": "Observe",
+    "pkPreview": "PK Preview",
+    "interactionRisk": "Interaction Risk",
+    "build": "Build",
+    "fdaExtraction": "FDA Extraction",
+    "reportTemplates": "Report Templates",
+    "privacyKeys": "Privacy Keys",
+    "help": "Help",
+    "helpOverview": "Overview",
+    "helpDrugLibrary": "Drug Library",
+    "helpCourseTracker": "Course Tracker",
+    "helpPkPreview": "PK Preview",
+    "helpDataOps": "Data & Settings"
+  },
+  "app": {
+    "unknownRegistryError": "Unknown registry error",
+    "actionTriggered": "Action triggered",
+    "navigationPlaceholder": "Navigation placeholder",
+    "navigationUpdated": "Navigation updated",
+    "navigationGroupUpdated": "Navigation group updated",
+    "notImplemented": "{label} is not implemented yet.",
+    "medicationLogAdded": "Medication log added",
+    "medicationLogUpdated": "Medication log updated",
+    "medicationLogDeleted": "Medication log deleted",
+    "templateSaved": "Long-term template saved",
+    "historyDeleted": "History deleted",
+    "loadingRegistry": "Loading drug registry...",
+    "registryUnavailable": "Drug registry unavailable:",
+    "registryEmpty": "Drug registry is empty.",
+    "historyDeletedDetail": "{drug} / {count} records"
+  },
+  "quickSearch": {
+    "title": "Quick Search",
+    "subtitle": "Jump to a module",
+    "placeholder": "Search English or Chinese keywords...",
+    "noResults": "No modules matched that keyword set.",
+    "entries": {
+      "library": {
+        "title": "Drug Library",
+        "description": "Browse the curated registry and local mapping metadata.",
+        "keywords": [
+          "drug",
+          "library",
+          "registry",
+          "mapping",
+          "fda",
+          "openfda"
+        ]
+      },
+      "courseTracker": {
+        "title": "Course Tracker",
+        "description": "Log medication events and review dose history.",
+        "keywords": [
+          "course",
+          "tracker",
+          "dose",
+          "history",
+          "log",
+          "medication"
+        ]
+      },
+      "medicationReminders": {
+        "title": "Medication Reminders",
+        "description": "Inspect reminder policies and next-dose notices.",
+        "keywords": [
+          "reminder",
+          "alert",
+          "next dose",
+          "schedule",
+          "medication"
+        ]
+      },
+      "labelSearch": {
+        "title": "Label Search",
+        "description": "Placeholder route for label lookup workflows.",
+        "keywords": [
+          "label",
+          "search",
+          "openfda",
+          "fda",
+          "lookup"
+        ]
+      },
+      "pkExtraction": {
+        "title": "PK Extraction",
+        "description": "Placeholder route for PK extraction tooling.",
+        "keywords": [
+          "pk",
+          "extraction",
+          "parameter",
+          "curve",
+          "model"
+        ]
+      },
+      "mappingReview": {
+        "title": "Mapping Review",
+        "description": "Placeholder route for registry mapping review.",
+        "keywords": [
+          "mapping",
+          "review",
+          "registry",
+          "audit",
+          "approval"
+        ]
+      },
+      "pkPreview": {
+        "title": "PK Preview",
+        "description": "Preview PK curves and simulation settings.",
+        "keywords": [
+          "pk",
+          "preview",
+          "simulation",
+          "curve",
+          "concentration"
+        ]
+      },
+      "interactionRisk": {
+        "title": "Interaction Risk",
+        "description": "Placeholder route for interaction-risk analysis.",
+        "keywords": [
+          "interaction",
+          "risk",
+          "warning",
+          "analysis"
+        ]
+      }
+    }
+  },
+  "status": {
+    "seed": "Seed",
+    "needs-review": "Needs review",
+    "reviewed": "Reviewed",
+    "rejected": "Rejected"
+  },
+  "drugLibrary": {
+    "title": "Drug Library",
+    "copy": "Maintain curated local mappings and route extracted PK parameters through review before use.",
+    "importJson": "Import JSON",
+    "export": "Export",
+    "addDrug": "Add Drug",
+    "cardFocused": "Drug card focused",
+    "filters": {
+      "all": "All statuses",
+      "needs-review": "Pending review",
+      "reviewed": "Reviewed",
+      "seed": "Seed only",
+      "rejected": "Rejected",
+      "controlled-only": "Controlled only"
+    },
+    "searchCaption": "Local registry search",
+    "searchPlaceholder": "Search generic name, brand name, alias, or Chinese keyword...",
+    "table": {
+      "drug": "Drug",
+      "status": "Status",
+      "fdaMapping": "FDA Mapping",
+      "plan": "Plan"
+    },
+    "loadingSearch": "Loading registry...",
+    "searchFailed": "Search failed:",
+    "unmappedChinese": "No local mapping exists for this Chinese drug name yet. We can still resolve it through the full mapping table or openFDA fallback if available.",
+    "noMatches": "No matching local drugs found.",
+    "resultsCount": "{count} local results",
+    "openFdaQuery": "openFDA Query",
+    "searchFda": "Search openFDA",
+    "resolvedMapping": "Resolved mapping",
+    "remoteTitle": "Search and add from openFDA",
+    "remoteCopy": "When no local registry row exists, we resolve aliases through the SQL mapping table, query openFDA with the canonical English term, and let you save a reviewed draft.",
+    "remoteIdle": "Enter a drug keyword to search the curated mapping table and openFDA candidates.",
+    "remoteLoading": "Searching openFDA catalog...",
+    "remoteEmpty": "No openFDA candidates matched this query.",
+    "remoteError": "openFDA search failed:",
+    "remoteResolved": "Resolved \"{query}\" to \"{canonical}\" via mapping: {matched}",
+    "remoteUnmapped": "This Chinese query is still unmapped in the SQL table. Add the alias to the mapping table before querying openFDA.",
+    "addFromOpenFda": "Add as draft",
+    "addedDraft": "Draft drug added from openFDA",
+    "addedDraftDetail": "{brand} / {generic}",
+    "draftBadge": "Draft",
+    "mappingSource": "Matched alias",
+    "manufacturer": "Manufacturer",
+    "route": "Route",
+    "dosageForm": "Dosage form",
+    "productNdc": "Product NDC",
+    "fdaPreview": "openFDA preview",
+    "fetchLabel": "Fetch label",
+    "actions": {
+      "more": "More actions",
+      "historyOpened": "History opened",
+      "historyOpenedDetail": "Review medication history for {drug}",
+      "viewHistory": "View history",
+      "records": "{count} records",
+      "historyDeleteRequested": "History deletion requested",
+      "historyDeleteDetail": "Delete {count} history records for {drug}",
+      "deleteHistory": "Delete history",
+      "deleteHistoryHint": "Only records for this drug are removed"
+    },
+    "plan": {
+      "noTemplate": "No saved template",
+      "updated": "Plan updated",
+      "updatedDetail": "{drug} now uses per-dose logging",
+      "opened": "Long-term editor opened",
+      "openedDetail": "{drug} can now edit long-term templates",
+      "needsMoreData": "Long-term template needs more data",
+      "enabled": "Long-term template enabled",
+      "medicationPlan": "{drug} medication plan",
+      "perDose": "Per-dose",
+      "perDoseLogging": "Per-dose logging",
+      "longTerm": "Long-term",
+      "templateLabel": "Template label",
+      "doseMg": "Dose mg",
+      "intervalHours": "Interval h",
+      "route": "Route",
+      "oral": "Oral",
+      "injection": "Injection",
+      "formulationNote": "Formulation / note",
+      "saveEnable": "Save and enable template"
+    },
+    "addPanel": {
+      "title": "Add Drug",
+      "genericName": "Generic name",
+      "brandName": "Brand name",
+      "formulation": "Formulation",
+      "reviewStatus": "Review status",
+      "queueReview": "Queue for mapping review",
+      "genericPlaceholder": "Example: methylphenidate hydrochloride",
+      "brandPlaceholder": "Example: Concerta"
+    },
+    "fdaPanel": {
+      "title": "FDA Search",
+      "copy": "Each drug resolves through the local curated mapping table before any openFDA NDC or label query runs. Extracted data never skips review."
+    },
+    "safetyPanel": {
+      "title": "Safety and Alerts",
+      "controlled": "Controlled substances default to secondary confirmation and clinical review.",
+      "standard": "Standard drugs still retain local confirmation, history, and reminder policies.",
+      "seedCount": "The embedded registry currently ships with {count} reviewed or draftable drugs, and the plan column can save long-term templates directly."
+    }
+  },
+  "pkPreview": {
+    "title": "PK Preview",
+    "source": {
+      "recordsTitle": "Medication-log driven",
+      "scheduledTitle": "Scheduled-regimen driven",
+      "recordsDescription": "The latest {drug} record becomes T+0. Current anchor: {anchor}. If you change the recorded date or time, the curve recalculates from that timestamp.",
+      "scheduledDescription": "Use a fixed dose, default interval, and steady-state or first-dose parameters to generate a demonstration curve.",
+      "options": {
+        "records": "Medication logs",
+        "scheduled": "Scheduled regimen"
+      }
+    },
+    "metrics": {
+      "current": "Current",
+      "peak": "Peak",
+      "trough": "Trough",
+      "nextDue": "Next due",
+      "scheduledNext": "Scheduled next"
+    },
+    "controls": {
+      "dose": "Dose (mg)",
+      "chartTime": "Chart time (h)",
+      "regimenState": "Regimen state",
+      "regimenOptions": {
+        "steadyState": "Steady state",
+        "firstDose": "First dose"
+      },
+      "recordedAnchor": "Recorded T+0",
+      "recordedOffset": "Recorded offset (h)",
+      "bodyWeight": "Body weight (kg)",
+      "cypMetabolizer": "CYP metabolizer",
+      "metabolizerOptions": {
+        "slow": "Slow",
+        "normal": "Normal",
+        "fast": "Fast"
+      }
+    },
+    "notices": {
+      "sourceUpdated": "PK source updated",
+      "sourceRecorded": "Using recorded medication events",
+      "sourceScheduled": "Using scheduled-regimen simulation",
+      "doseUpdated": "Dose parameter updated",
+      "chartTimeUpdated": "Chart time updated",
+      "regimenUpdated": "Regimen state updated",
+      "weightUpdated": "Body weight updated",
+      "cypUpdated": "CYP state updated"
+    },
+    "warnings": {
+      "injectionAssumption": "Injection-route handling still uses provisional absorption assumptions for UI validation only. Do not treat it as a real exposure estimate.",
+      "noReferenceBand": "This draft drug does not have a reviewed therapeutic window yet. The curve is still shown for structure testing only.",
+      "provisionalReferenceBand": "The shaded window is provisional and has not been scientifically validated yet. Use it only as a review scaffold."
+    },
+    "records": {
+      "sourceLabel": "PK data source",
+      "sourceRecorded": "medication.events.v1",
+      "sourceScheduled": "scheduled regimen",
+      "recordedDoses": "recorded doses",
+      "anchorLabel": "T+0 anchor",
+      "chartFocus": "chart focus",
+      "focusValue": "T+{hours}h",
+      "currentOffset": "Current offset: {hours} h",
+      "noRecords": "No records yet. The curve stays at baseline."
+    },
+    "chart": {
+      "ariaLabel": "Plasma concentration over 48 hours",
+      "noSamples": "No PK samples available for this chart yet."
+    },
+    "tooltip": {
+      "title": "Realtime estimate",
+      "offsetTime": "Time after T+0",
+      "offsetValue": "T+{hours} h",
+      "clockTime": "Expected clock time",
+      "concentration": "Estimated concentration",
+      "concentrationValue": "{value} {unit}"
+    },
+    "analysis": {
+      "research": "Unvalidated model",
+      "low": "Below band",
+      "inRange": "In band",
+      "high": "Above band"
+    }
+  },
+  "courseTracker": {
+    "title": "Course Tracker",
+    "copy": "Log each real administration, track cumulative dose, last-24-hour exposure, and adherence. All create or edit actions still use a second-confirmation step.",
+    "summary": {
+      "courseTotal": "Course total",
+      "last24h": "Last 24h",
+      "doseCount": "Dose count",
+      "adherence": "Adherence",
+      "logs": "logs"
+    },
+    "pkLinkNotice": "These records directly drive the PK preview below. Any add, edit, or delete action recalculates the curve from the current log set.",
+    "form": {
+      "addTitle": "Add medication log",
+      "editTitle": "Edit medication log",
+      "administrationTime": "Administration time",
+      "route": "Route",
+      "oral": "Oral",
+      "injection": "Injection",
+      "drug": "Drug",
+      "dose": "Dose (mg)",
+      "formulation": "Formulation / strength",
+      "formulationPlaceholder": "Example: extended-release tablet",
+      "site": "Injection site / operator note",
+      "sitePlaceholder": "Example: left upper arm / prescribed site / clinician-administered",
+      "note": "Note",
+      "notePlaceholder": "Record meal timing, delayed catch-up dosing, or prescription confirmation state",
+      "quickAdd": "Quick add from long-term template",
+      "cancelEdit": "Cancel edit",
+      "clear": "Clear",
+      "reviewSave": "Review and save changes",
+      "reviewAdd": "Review and add log",
+      "defaults": {
+        "extendedRelease": "extended-release / controlled-release",
+        "immediateRelease": "immediate-release"
+      },
+      "errors": {
+        "invalidTime": "Enter a valid administration time.",
+        "invalidDose": "Enter a dose greater than 0."
+      }
+    },
+    "notices": {
+      "editorOpened": "Medication editor opened",
+      "editorOpenedDetail": "{time} / {dose} {unit}"
+    },
+    "logs": {
+      "title": "Medication Logs",
+      "table": {
+        "time": "Time",
+        "drug": "Drug",
+        "route": "Route",
+        "dose": "Dose",
+        "note": "Note",
+        "actions": "Actions"
+      },
+      "edit": "Edit",
+      "delete": "Delete",
+      "empty": "No medication logs exist for the current drug yet.",
+      "justRecorded": "Just recorded",
+      "hoursAgo": "{hours} h ago",
+      "deleteConfirm": "Delete this medication log?\n{time} / {dose} {unit}"
+    },
+    "panels": {
+      "aggregationTitle": "Dose Aggregation Logic",
+      "aggregationCopy": "Dose aggregation respects drug identity, formulation, route, course window, and log-time filtering. Different formulations do not collapse together unless an audited conversion rule exists.",
+      "stateTitle": "Course State"
+    },
+    "state": {
+      "defaultInterval": "default interval",
+      "courseWindow": "course window",
+      "courseWindowValue": "48 h demo",
+      "reviewState": "review state"
+    },
+    "confirm": {
+      "tag": "Second Check",
+      "titleAdd": "Confirm medication log",
+      "titleEdit": "Confirm medication edit",
+      "copy": "Re-check the administration details here. Confirming writes a factual log entry only and does not change the prescription itself.",
+      "labels": {
+        "drug": "Drug",
+        "time": "Time",
+        "route": "Route",
+        "dose": "Dose",
+        "formulation": "Formulation",
+        "site": "Site / operator",
+        "note": "Note"
+      },
+      "notApplicable": "Not applicable",
+      "noNote": "No note",
+      "safety": "Controlled substances, psychiatric medications, sedatives, opioids, and injection logs should still be reviewed against the actual prescription and clinician instructions.",
+      "back": "Go back",
+      "confirmSave": "Confirm save",
+      "confirmAdd": "Confirm add"
+    },
+    "quickAdd": {
+      "tag": "Quick Add",
+      "title": "Long-term Template",
+      "copy": "Pick a saved template and optionally override its parameters for this single log. The next step still goes through confirmation before anything is written.",
+      "template": "Template",
+      "administrationTime": "Administration time",
+      "dose": "Dose mg",
+      "interval": "Interval h",
+      "route": "Route",
+      "note": "Note",
+      "notePlaceholder": "Example: early dose / delayed dose / with meal / symptom note",
+      "noTemplate": "No long-term template exists for the current drug yet. Save one from the library or PK preview before using quick add.",
+      "applyReview": "Apply and review",
+      "errors": {
+        "noTemplate": "No long-term template exists for the current drug yet.",
+        "invalidTime": "Enter a valid administration time.",
+        "invalidDose": "Enter a dose greater than 0.",
+        "invalidInterval": "Enter an interval greater than 0."
+      }
+    },
+    "routeGuidance": {
+      "source": "Source:",
+      "recordingTitle": "{route} recording guidance",
+      "oral": {
+        "label": "Oral",
+        "summary": "Follow the prescription, drug label, or pharmacist instructions. Never treat reminders as dosing advice.",
+        "sourceLabel": "MedlinePlus Taking medicines",
+        "sections": {
+          "checkBeforeRecording": {
+            "title": "Check before recording",
+            "items": {
+              "item1": "Confirm the drug name, strength, dosage form, intended dose, timing, and contraindication warnings.",
+              "item2": "Do not crush, split, chew, or otherwise alter extended-release, controlled-release, enteric-coated, or sublingual formulations unless the official instructions allow it.",
+              "item3": "If the prescription, label, clinician guidance, or current log disagree, stop and confirm before recording the dose."
+            }
+          },
+          "recordingBoundary": {
+            "title": "Recording boundary",
+            "items": {
+              "item1": "Only record what was actually taken and when it was taken. Do not use PK estimates as a reason to self-correct or increase a dose.",
+              "item2": "Missed doses, vomiting, severe drowsiness, breathing changes, chest pain, altered consciousness, or allergic reactions should follow real medical guidance rather than local reminder logic."
+            }
+          }
+        }
+      },
+      "injection": {
+        "label": "Injection",
+        "summary": "Only record injections already planned by a prescription or administered by qualified personnel. The app does not teach injection technique.",
+        "sourceLabel": "CDC Preventing Unsafe Injection Practices",
+        "sections": {
+          "safetyCheck": {
+            "title": "Safety check",
+            "items": {
+              "item1": "Confirm the medication, concentration, dose, route, lot number, expiration, and order plan match.",
+              "item2": "Use the sterile process defined by qualified medical guidance. Needles and syringes must be sterile, single-use, and single-person.",
+              "item3": "Never reuse sharps, syringes, or injection supplies across administrations or people."
+            }
+          },
+          "stopAndGetHelp": {
+            "title": "Stop and get help",
+            "items": {
+              "item1": "Do not record the dose as administered if the solution is cloudy, discolored, damaged, leaking, or otherwise cannot be verified.",
+              "item2": "Seek immediate medical help for severe pain, swelling, numbness, fever, breathing difficulty, rash, or significant bleeding.",
+              "item3": "Dispose of sharps according to local medical-waste requirements rather than standard household trash."
+            }
+          }
+        }
+      }
+    }
+  }
+}

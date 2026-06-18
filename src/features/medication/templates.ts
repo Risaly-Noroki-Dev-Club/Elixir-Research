@@ -4,13 +4,13 @@ import type { LongTermMedicationTemplate, LongTermTemplateDraft, MedicationEvent
 export function createTemplateDraft(drug: DrugRegistryEntry): LongTermTemplateDraft {
   return {
     drugId: drug.id,
-    label: `${drug.genericNameZh} 长期用药`,
+    label: `${drug.genericNameZh} long-term plan`,
     route: "oral",
     doseAmount: String(drug.defaultDoseMg),
     doseUnit: "mg",
     formulation: drug.releaseModel === "biphasic-cr" ? "extended-release / controlled-release" : "immediate-release",
     intervalHours: String(drug.defaultIntervalHours),
-    note: "长期用药模板"
+    note: "Long-term medication template"
   };
 }
 
@@ -26,11 +26,11 @@ export function buildLongTermTemplate({
   return {
     id: existingTemplateId ?? `template-${Date.now()}`,
     drugId: draft.drugId,
-    label: draft.label.trim() || "长期用药模板",
+    label: draft.label.trim() || "Long-term medication template",
     route: draft.route,
     doseAmount: Number(draft.doseAmount),
     doseUnit: draft.doseUnit,
-    formulation: draft.formulation.trim() || "未记录剂型",
+    formulation: draft.formulation.trim() || "Unspecified formulation",
     intervalHours: Number(draft.intervalHours),
     note: draft.note.trim(),
     createdAt: now,
@@ -43,11 +43,11 @@ export function validateTemplateDraft(draft: LongTermTemplateDraft) {
   const interval = Number(draft.intervalHours);
 
   if (!Number.isFinite(dose) || dose <= 0) {
-    return "请填写大于 0 的模板剂量。";
+    return "Enter a dose greater than 0.";
   }
 
   if (!Number.isFinite(interval) || interval <= 0) {
-    return "请填写大于 0 的给药间隔。";
+    return "Enter an interval greater than 0.";
   }
 
   return "";
@@ -67,7 +67,7 @@ export function buildMedicationEventFromTemplate({
   note?: string;
 }): MedicationEvent {
   const doseAmount = doseAmountOverride && doseAmountOverride > 0 ? doseAmountOverride : template.doseAmount;
-  const intervalNote = intervalOverride && intervalOverride !== template.intervalHours ? `间隔临时设为 ${intervalOverride}h` : "";
+  const intervalNote = intervalOverride && intervalOverride !== template.intervalHours ? `Temporary interval override: ${intervalOverride}h` : "";
   const mergedNote = [template.note, intervalNote, note].filter(Boolean).join(" / ");
 
   return {

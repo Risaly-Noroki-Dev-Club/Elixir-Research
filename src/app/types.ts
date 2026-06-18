@@ -1,4 +1,4 @@
-export type AppView = "drug-library" | "course-tracker" | "medication-reminders" | "not-found";
+export type AppView = "drug-library" | "course-tracker" | "medication-reminders" | "help" | "not-found";
 
 export interface NotFoundContext {
   module: string;

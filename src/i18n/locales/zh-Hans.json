@@ -1,0 +1,520 @@
+{
+  "common": {
+    "close": "关闭",
+    "search": "搜索",
+    "retryRegistry": "重试注册表",
+    "ready": "可用",
+    "notAvailable": "未开放",
+    "cancel": "取消",
+    "now": "现在"
+  },
+  "topbar": {
+    "support": "支持",
+    "switchLanguage": "切换语言",
+    "theme": "切换明暗模式",
+    "accent": "调整主题色",
+    "account": "账户",
+    "languageMenu": "语言",
+    "languageChanged": "语言已切换为 {label}",
+    "locales": {
+      "en": "英文",
+      "zhHans": "简体中文",
+      "zhHant": "繁體中文",
+      "ja": "日语"
+    }
+  },
+  "nav": {
+    "quickSearch": "快速搜索...",
+    "accountHome": "账户首页",
+    "drugLibrary": "药物库",
+    "library": "药物列表",
+    "fdaData": "FDA 数据",
+    "labelSearch": "标签搜索",
+    "pkExtraction": "PK 参数提取",
+    "mappingReview": "映射审核",
+    "medication": "用药",
+    "courseTracker": "疗程追踪",
+    "medicationReminders": "用药提醒",
+    "observe": "观察",
+    "pkPreview": "PK 预览",
+    "interactionRisk": "相互作用风险",
+    "build": "构建",
+    "fdaExtraction": "FDA 提取",
+    "reportTemplates": "报告模板",
+    "privacyKeys": "隐私密钥",
+    "help": "帮助",
+    "helpOverview": "总览",
+    "helpDrugLibrary": "药物库",
+    "helpCourseTracker": "疗程追踪",
+    "helpPkPreview": "PK 预览",
+    "helpDataOps": "数据与设置"
+  },
+  "app": {
+    "unknownRegistryError": "未知注册表错误",
+    "actionTriggered": "已触发操作",
+    "navigationPlaceholder": "导航占位",
+    "navigationUpdated": "导航已切换",
+    "navigationGroupUpdated": "导航分组已切换",
+    "notImplemented": "{label} 当前功能尚未实现。",
+    "medicationLogAdded": "用药记录已添加",
+    "medicationLogUpdated": "用药记录已更新",
+    "medicationLogDeleted": "用药记录已删除",
+    "templateSaved": "长期用药模板已保存",
+    "historyDeleted": "历史数据已删除",
+    "loadingRegistry": "正在加载药物注册表...",
+    "registryUnavailable": "药物注册表不可用：",
+    "registryEmpty": "药物注册表为空。",
+    "historyDeletedDetail": "{drug} / {count} 条记录"
+  },
+  "quickSearch": {
+    "title": "快速搜索",
+    "subtitle": "跳转到模块",
+    "placeholder": "搜索英文或中文关键词...",
+    "noResults": "没有模块命中这组关键词。",
+    "entries": {
+      "library": {
+        "title": "药物库",
+        "description": "浏览整理后的注册表和本地映射元数据。",
+        "keywords": [
+          "药物",
+          "药库",
+          "注册表",
+          "映射",
+          "药品",
+          "fda"
+        ]
+      },
+      "courseTracker": {
+        "title": "疗程追踪",
+        "description": "记录用药事件并查看剂量历史。",
+        "keywords": [
+          "疗程",
+          "追踪",
+          "剂量",
+          "历史",
+          "记录",
+          "用药"
+        ]
+      },
+      "medicationReminders": {
+        "title": "用药提醒",
+        "description": "查看提醒策略与下一剂提示。",
+        "keywords": [
+          "提醒",
+          "警报",
+          "下一剂",
+          "计划",
+          "用药"
+        ]
+      },
+      "labelSearch": {
+        "title": "标签搜索",
+        "description": "标签检索流程的占位入口。",
+        "keywords": [
+          "标签",
+          "搜索",
+          "检索",
+          "说明书",
+          "fda"
+        ]
+      },
+      "pkExtraction": {
+        "title": "PK 参数提取",
+        "description": "PK 参数提取工具的占位入口。",
+        "keywords": [
+          "pk",
+          "参数",
+          "提取",
+          "曲线",
+          "模型"
+        ]
+      },
+      "mappingReview": {
+        "title": "映射审核",
+        "description": "注册表映射审核的占位入口。",
+        "keywords": [
+          "映射",
+          "审核",
+          "审查",
+          "注册表",
+          "批准"
+        ]
+      },
+      "pkPreview": {
+        "title": "PK 预览",
+        "description": "预览 PK 曲线与模拟参数。",
+        "keywords": [
+          "pk",
+          "预览",
+          "模拟",
+          "曲线",
+          "浓度"
+        ]
+      },
+      "interactionRisk": {
+        "title": "相互作用风险",
+        "description": "相互作用风险分析的占位入口。",
+        "keywords": [
+          "相互作用",
+          "风险",
+          "警告",
+          "分析"
+        ]
+      }
+    }
+  },
+  "status": {
+    "seed": "种子",
+    "needs-review": "待审核",
+    "reviewed": "已审核",
+    "rejected": "已驳回"
+  },
+  "drugLibrary": {
+    "title": "药物库",
+    "copy": "维护本地整理映射，并让所有抽取到的 PK 参数先经过审核后再使用。",
+    "importJson": "导入 JSON",
+    "export": "导出",
+    "addDrug": "新增药物",
+    "cardFocused": "药物卡片已激活",
+    "filters": {
+      "all": "全部状态",
+      "needs-review": "待审核",
+      "reviewed": "已审核",
+      "seed": "仅种子",
+      "rejected": "已驳回",
+      "controlled-only": "仅受控药物"
+    },
+    "searchCaption": "本地注册表搜索",
+    "searchPlaceholder": "搜索通用名、商品名、别名或中文关键词...",
+    "table": {
+      "drug": "药物",
+      "status": "状态",
+      "fdaMapping": "FDA 映射",
+      "plan": "方案"
+    },
+    "loadingSearch": "正在加载注册表...",
+    "searchFailed": "搜索失败：",
+    "unmappedChinese": "当前还没有这个中文药名的本地映射。如果 SQL 映射表或 openFDA 回退可解析，我们会继续补全候选项。",
+    "noMatches": "没有命中的本地药物。",
+    "resultsCount": "{count} 条本地结果",
+    "openFdaQuery": "openFDA 查询",
+    "searchFda": "搜索 openFDA",
+    "resolvedMapping": "映射解析",
+    "remoteTitle": "从 openFDA 搜索并添加",
+    "remoteCopy": "当本地注册表没有命中时，系统会先通过 SQL 映射表解析别名，再使用规范英文名查询 openFDA，并允许你保存为本地草稿。",
+    "remoteIdle": "输入药物关键词后，这里会同时显示映射解析结果和 openFDA 候选项。",
+    "remoteLoading": "正在搜索 openFDA 目录...",
+    "remoteEmpty": "没有匹配当前查询的 openFDA 候选项。",
+    "remoteError": "openFDA 搜索失败：",
+    "remoteResolved": "已通过映射将“{query}”解析为“{canonical}”，命中别名：{matched}",
+    "remoteUnmapped": "这条中文查询在 SQL 映射表中仍未收录。请先补充映射别名，再查询 openFDA。",
+    "addFromOpenFda": "添加为草稿",
+    "addedDraft": "已从 openFDA 添加草稿药物",
+    "addedDraftDetail": "{brand} / {generic}",
+    "draftBadge": "草稿",
+    "mappingSource": "命中别名",
+    "manufacturer": "厂商",
+    "route": "给药途径",
+    "dosageForm": "剂型",
+    "productNdc": "产品 NDC",
+    "fdaPreview": "openFDA 预览",
+    "fetchLabel": "拉取标签",
+    "actions": {
+      "more": "更多操作",
+      "historyOpened": "历史面板已打开",
+      "historyOpenedDetail": "查看 {drug} 的用药历史",
+      "viewHistory": "查看历史",
+      "records": "{count} 条记录",
+      "historyDeleteRequested": "历史删除请求已触发",
+      "historyDeleteDetail": "删除 {drug} 的 {count} 条历史记录",
+      "deleteHistory": "删除历史",
+      "deleteHistoryHint": "仅删除该药物的记录"
+    },
+    "plan": {
+      "noTemplate": "未保存模板",
+      "updated": "方案已切换",
+      "updatedDetail": "{drug} 已切换为按次记录",
+      "opened": "长期用药编辑器已打开",
+      "openedDetail": "{drug} 现在可以编辑长期用药模板",
+      "needsMoreData": "长期模板需要补全",
+      "enabled": "长期用药模板已启用",
+      "medicationPlan": "{drug} 用药方案",
+      "perDose": "按次",
+      "perDoseLogging": "按次记录",
+      "longTerm": "长期",
+      "templateLabel": "模板名",
+      "doseMg": "剂量 mg",
+      "intervalHours": "间隔 h",
+      "route": "途径",
+      "oral": "口服",
+      "injection": "注射",
+      "formulationNote": "剂型 / 备注",
+      "saveEnable": "保存并启用模板"
+    },
+    "addPanel": {
+      "title": "新增药物",
+      "genericName": "通用名",
+      "brandName": "商品名",
+      "formulation": "剂型",
+      "reviewStatus": "审核状态",
+      "queueReview": "加入映射审核队列",
+      "genericPlaceholder": "例如：methylphenidate hydrochloride",
+      "brandPlaceholder": "例如：Concerta"
+    },
+    "fdaPanel": {
+      "title": "FDA 搜索",
+      "copy": "每个药物都会先经过本地整理映射表，再进入 openFDA 的 NDC 与标签查询。抽取结果不会直接越过审核。"
+    },
+    "safetyPanel": {
+      "title": "安全与提醒",
+      "controlled": "受控药物默认进入二次确认与临床审核流程。",
+      "standard": "常规药物仍然保留本地确认、历史记录与提醒策略。",
+      "seedCount": "当前嵌入注册表中可直接使用或作为草稿补录的药物共有 {count} 个，方案列可直接保存长期用药模板。"
+    }
+  },
+  "pkPreview": {
+    "title": "PK 预览",
+    "source": {
+      "recordsTitle": "基于用药记录",
+      "scheduledTitle": "基于计划方案",
+      "recordsDescription": "最新一条 {drug} 记录会成为 T+0。当前锚点：{anchor}。如果你修改了记录时间，曲线会从该时间重新计算。",
+      "scheduledDescription": "使用固定剂量、默认间隔以及稳态或首剂参数，生成演示用曲线。",
+      "options": {
+        "records": "用药记录",
+        "scheduled": "计划方案"
+      }
+    },
+    "metrics": {
+      "current": "当前",
+      "peak": "峰值",
+      "trough": "谷值",
+      "nextDue": "下一次",
+      "scheduledNext": "计划下一次"
+    },
+    "controls": {
+      "dose": "剂量 (mg)",
+      "chartTime": "图表时间 (h)",
+      "regimenState": "给药状态",
+      "regimenOptions": {
+        "steadyState": "稳态",
+        "firstDose": "首剂"
+      },
+      "recordedAnchor": "记录 T+0",
+      "recordedOffset": "记录偏移 (h)",
+      "bodyWeight": "体重 (kg)",
+      "cypMetabolizer": "CYP 代谢类型",
+      "metabolizerOptions": {
+        "slow": "慢",
+        "normal": "正常",
+        "fast": "快"
+      }
+    },
+    "notices": {
+      "sourceUpdated": "PK 数据源已更新",
+      "sourceRecorded": "已切换为用药记录驱动",
+      "sourceScheduled": "已切换为计划方案模拟",
+      "doseUpdated": "剂量参数已更新",
+      "chartTimeUpdated": "图表时间已更新",
+      "regimenUpdated": "给药状态已更新",
+      "weightUpdated": "体重已更新",
+      "cypUpdated": "CYP 状态已更新"
+    },
+    "warnings": {
+      "injectionAssumption": "注射途径当前仍使用临时吸收假设，仅用于界面验证，不能视为真实暴露估计。",
+      "noReferenceBand": "这个草稿药物还没有经过审核的治疗窗口。当前曲线仅用于结构验证。",
+      "provisionalReferenceBand": "阴影范围仍是临时参考，尚未经过科学验证，只能作为审核脚手架使用。"
+    },
+    "records": {
+      "sourceLabel": "PK 数据来源",
+      "sourceRecorded": "medication.events.v1",
+      "sourceScheduled": "计划方案",
+      "recordedDoses": "记录剂次",
+      "anchorLabel": "T+0 锚点",
+      "chartFocus": "图表焦点",
+      "focusValue": "T+{hours}h",
+      "currentOffset": "当前偏移：{hours} h",
+      "noRecords": "还没有记录，曲线保持基线。"
+    },
+    "chart": {
+      "ariaLabel": "48 小时血药浓度曲线",
+      "noSamples": "这个图表目前还没有可用的 PK 采样点。"
+    },
+    "tooltip": {
+      "title": "实时估值",
+      "offsetTime": "T+0 之后时间",
+      "offsetValue": "T+{hours} h",
+      "clockTime": "预期时刻",
+      "concentration": "预估浓度",
+      "concentrationValue": "{value} {unit}"
+    },
+    "analysis": {
+      "research": "模型未验证",
+      "low": "低于范围",
+      "inRange": "范围内",
+      "high": "高于范围"
+    }
+  },
+  "courseTracker": {
+    "title": "疗程追踪",
+    "copy": "记录每一次真实给药，跟踪累计剂量、过去 24 小时暴露和依从性。所有新增或编辑操作仍然需要二次确认。",
+    "summary": {
+      "courseTotal": "疗程总量",
+      "last24h": "过去 24h",
+      "doseCount": "记录次数",
+      "adherence": "依从性",
+      "logs": "条"
+    },
+    "pkLinkNotice": "下面的 PK 预览会直接使用这些记录。任何新增、编辑或删除操作都会根据当前记录集重新计算曲线。",
+    "form": {
+      "addTitle": "新增用药记录",
+      "editTitle": "编辑用药记录",
+      "administrationTime": "给药时间",
+      "route": "途径",
+      "oral": "口服",
+      "injection": "注射",
+      "drug": "药物",
+      "dose": "剂量 (mg)",
+      "formulation": "剂型 / 规格",
+      "formulationPlaceholder": "例如：缓释片",
+      "site": "注射部位 / 操作备注",
+      "sitePlaceholder": "例如：左上臂 / 处方指定部位 / 医护人员给药",
+      "note": "备注",
+      "notePlaceholder": "记录进餐时间、补服情况或处方确认状态",
+      "quickAdd": "从长期模板快速添加",
+      "cancelEdit": "取消编辑",
+      "clear": "清空",
+      "reviewSave": "复核并保存修改",
+      "reviewAdd": "复核并添加记录",
+      "defaults": {
+        "extendedRelease": "缓释 / 控释",
+        "immediateRelease": "速释"
+      },
+      "errors": {
+        "invalidTime": "请输入有效的给药时间。",
+        "invalidDose": "请输入大于 0 的剂量。"
+      }
+    },
+    "notices": {
+      "editorOpened": "已打开用药编辑器",
+      "editorOpenedDetail": "{time} / {dose} {unit}"
+    },
+    "logs": {
+      "title": "用药记录",
+      "table": {
+        "time": "时间",
+        "drug": "药物",
+        "route": "途径",
+        "dose": "剂量",
+        "note": "备注",
+        "actions": "操作"
+      },
+      "edit": "编辑",
+      "delete": "删除",
+      "empty": "当前药物还没有用药记录。",
+      "justRecorded": "刚刚记录",
+      "hoursAgo": "{hours} 小时前",
+      "deleteConfirm": "删除这条用药记录？\n{time} / {dose} {unit}"
+    },
+    "panels": {
+      "aggregationTitle": "剂量聚合逻辑",
+      "aggregationCopy": "剂量聚合会同时考虑药物身份、剂型、途径、疗程窗口和记录时间过滤。除非存在审核通过的换算规则，不同剂型不会被自动合并。",
+      "stateTitle": "疗程状态"
+    },
+    "state": {
+      "defaultInterval": "默认间隔",
+      "courseWindow": "疗程窗口",
+      "courseWindowValue": "48 h 演示",
+      "reviewState": "审核状态"
+    },
+    "confirm": {
+      "tag": "二次确认",
+      "titleAdd": "确认用药记录",
+      "titleEdit": "确认用药编辑",
+      "copy": "请在这里再次核对给药信息。确认后只会写入事实记录，不会改变处方本身。",
+      "labels": {
+        "drug": "药物",
+        "time": "时间",
+        "route": "途径",
+        "dose": "剂量",
+        "formulation": "剂型",
+        "site": "部位 / 操作人",
+        "note": "备注"
+      },
+      "notApplicable": "不适用",
+      "noNote": "无备注",
+      "safety": "受控药物、精神科药物、镇静药、阿片类以及注射记录，仍然需要对照真实处方和临床指示再次核对。",
+      "back": "返回",
+      "confirmSave": "确认保存",
+      "confirmAdd": "确认添加"
+    },
+    "quickAdd": {
+      "tag": "快速添加",
+      "title": "长期模板",
+      "copy": "选择一个已保存模板，并可只对本次记录临时覆盖参数。真正写入前仍然会进入确认步骤。",
+      "template": "模板",
+      "administrationTime": "给药时间",
+      "dose": "剂量 mg",
+      "interval": "间隔 h",
+      "route": "途径",
+      "note": "备注",
+      "notePlaceholder": "例如：提前服用 / 延后服用 / 随餐 / 症状备注",
+      "noTemplate": "当前药物还没有长期模板。请先在药物库或 PK 预览中保存模板，再使用快速添加。",
+      "applyReview": "应用并复核",
+      "errors": {
+        "noTemplate": "当前药物还没有长期模板。",
+        "invalidTime": "请输入有效的给药时间。",
+        "invalidDose": "请输入大于 0 的剂量。",
+        "invalidInterval": "请输入大于 0 的间隔。"
+      }
+    },
+    "routeGuidance": {
+      "source": "来源：",
+      "recordingTitle": "{route}记录指引",
+      "oral": {
+        "label": "口服",
+        "summary": "请遵循处方、药品标签或药师说明。不要把提醒当成给药建议。",
+        "sourceLabel": "MedlinePlus 用药说明",
+        "sections": {
+          "checkBeforeRecording": {
+            "title": "记录前检查",
+            "items": {
+              "item1": "确认药名、规格、剂型、目标剂量、给药时间以及禁忌或警示信息。",
+              "item2": "除非官方说明明确允许，否则不要擅自压碎、掰开、咀嚼或改变缓释、控释、肠溶或舌下制剂。",
+              "item3": "如果处方、标签、临床指导或当前记录彼此冲突，先停止并确认，再记录这次给药。"
+            }
+          },
+          "recordingBoundary": {
+            "title": "记录边界",
+            "items": {
+              "item1": "只记录真实服用了什么以及何时服用。不要用 PK 估计作为自行纠正或加量的理由。",
+              "item2": "漏服、呕吐、严重嗜睡、呼吸变化、胸痛、意识改变或过敏反应，应优先遵循真实医疗指导，而不是本地提醒逻辑。"
+            }
+          }
+        }
+      },
+      "injection": {
+        "label": "注射",
+        "summary": "只记录已经由处方规划或由合格人员执行的注射。应用不会教授注射技术。",
+        "sourceLabel": "CDC 不安全注射预防",
+        "sections": {
+          "safetyCheck": {
+            "title": "安全检查",
+            "items": {
+              "item1": "确认药物、浓度、剂量、途径、批号、有效期以及医嘱计划一致。",
+              "item2": "遵循合格医疗指导定义的无菌流程。针头和注射器必须无菌、单次使用且只用于单人。",
+              "item3": "不要在不同给药场景或不同人之间重复使用锐器、注射器或注射用品。"
+            }
+          },
+          "stopAndGetHelp": {
+            "title": "停止并求助",
+            "items": {
+              "item1": "如果药液浑浊、变色、破损、渗漏或无法确认状态，不要把这次剂量记录为已给药。",
+              "item2": "如出现剧烈疼痛、肿胀、麻木、发热、呼吸困难、皮疹或明显出血，请立即求医。",
+              "item3": "锐器应按当地医疗废弃物规范处理，不要丢进普通生活垃圾。"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,6 +3,22 @@ import type { DrugProfile, ReleaseModel } from "../pk-engine/types";
 export type ReviewStatus = "seed" | "needs-review" | "reviewed" | "rejected";
 
 export type SourceKind = "curated" | "openfda-label" | "dailymed" | "rxnorm";
+export type MappingSource = "manual" | "rxnorm" | "wikidata" | "pubchem" | "openfda" | "doselab";
+
+export interface DrugNameMapping {
+  canonicalSearchTerm: string;
+  aliasesEn: string[];
+  aliasesZh: string[];
+  rxNormIds: string[];
+  sources: MappingSource[];
+}
+
+export interface OpenFdaMapping {
+  searchTerm: string;
+  ndcExactQuery: string;
+  ndcLooseQuery: string;
+  labelQuery: string;
+}
 
 export interface DrugRegistryEntry {
   id: string;
@@ -16,9 +32,61 @@ export interface DrugRegistryEntry {
   defaultIntervalHours: number;
   releaseModel: ReleaseModel;
   profile: DrugProfile;
+  mapping: DrugNameMapping;
+  openFda: OpenFdaMapping;
   openFdaQuery: string;
   reviewStatus: ReviewStatus;
   sourceNotes: string[];
+}
+
+export interface DrugRegistrySearchResult {
+  query: string;
+  normalizedQuery: string;
+  hasCjk: boolean;
+  unmatchedCjk: boolean;
+  resolvedMapping: DrugMappingResolution | null;
+  entries: DrugRegistryEntry[];
+}
+
+export interface DrugMappingRecord {
+  id: string;
+  canonicalName: string;
+  category: DrugRegistryEntry["category"];
+  aliasesZh: string[];
+  sources: MappingSource[];
+}
+
+export interface DrugMappingResolution extends DrugMappingRecord {
+  matchedAlias: string;
+  matchedLocale: "en" | "zh";
+}
+
+export interface OpenFdaCatalogCandidate {
+  id: string;
+  canonicalName: string;
+  brandName: string;
+  genericName: string;
+  manufacturer: string;
+  productNdc: string;
+  packageNdc: string[];
+  route: string[];
+  dosageForm: string;
+  marketingStatus: string;
+  rxcui: string[];
+  query: string;
+  labelQuery: string;
+  resolvedMapping: DrugMappingResolution | null;
+}
+
+export interface OpenFdaCatalogSearchResult {
+  query: string;
+  normalizedQuery: string;
+  hasCjk: boolean;
+  unmatchedCjk: boolean;
+  resolvedMapping: DrugMappingResolution | null;
+  exactQuery: string;
+  looseQuery: string;
+  candidates: OpenFdaCatalogCandidate[];
 }
 
 export interface OpenFdaLabelResult {

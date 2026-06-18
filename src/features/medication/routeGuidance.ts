@@ -18,51 +18,51 @@ export interface RouteGuidance {
 export const routeGuidance: Record<MedicationRoute, RouteGuidance> = {
   oral: {
     route: "oral",
-    label: "口服",
-    summary: "按处方、药品标签或药师说明服用；不要把提醒当成加量建议。",
+    label: "Oral",
+    summary: "Follow the prescription, drug label, or pharmacist instructions. Never treat reminders as dosing advice.",
     sourceLabel: "MedlinePlus Taking medicines",
     sourceUrl: "https://medlineplus.gov/ency/patientinstructions/000535.htm",
     sections: [
       {
-        title: "服用前核对",
+        title: "Check before recording",
         items: [
-          "核对药品名称、规格、剂型、剂量、给药时间和禁忌提示。",
-          "缓释、控释、肠溶或舌下剂型不要自行掰开、碾碎、咀嚼或改变给药方式。",
-          "如处方与药品标签、医生说明或当前记录不一致，先暂停记录并联系医生或药师确认。"
+          "Confirm the drug name, strength, dosage form, intended dose, timing, and contraindication warnings.",
+          "Do not crush, split, chew, or otherwise alter extended-release, controlled-release, enteric-coated, or sublingual formulations unless the official instructions allow it.",
+          "If the prescription, label, clinician guidance, or current log disagree, stop and confirm before recording the dose."
         ]
       },
       {
-        title: "记录边界",
+        title: "Recording boundary",
         items: [
-          "记录已实际服用的剂量和时间，不把血药浓度估算结果作为自行补服或加量依据。",
-          "漏服、呕吐、严重嗜睡、呼吸异常、意识改变、胸痛或过敏表现需要按医疗建议处理。"
+          "Only record what was actually taken and when it was taken. Do not use PK estimates as a reason to self-correct or increase a dose.",
+          "Missed doses, vomiting, severe drowsiness, breathing changes, chest pain, altered consciousness, or allergic reactions should follow real medical guidance rather than local reminder logic."
         ]
       }
     ]
   },
   injection: {
     route: "injection",
-    label: "注射",
-    summary: "仅记录已经由本人处方计划或合格人员执行的注射；系统不提供注射教学。",
+    label: "Injection",
+    summary: "Only record injections already planned by a prescription or administered by qualified personnel. The app does not teach injection technique.",
     sourceLabel: "CDC Preventing Unsafe Injection Practices",
     sourceUrl: "https://www.cdc.gov/injection-safety/hcp/clinical-safety/index.html",
     sections: [
       {
-        title: "安全核对",
+        title: "Safety check",
         emphasis: "warning",
         items: [
-          "确认药品、浓度、剂量、给药途径、批号/有效期和处方计划一致。",
-          "按医疗人员给出的无菌流程处理；针具和注射器应为一次性、无菌、单人单次使用。",
-          "不要复用针头、注射器或混用不同人员的注射用品。"
+          "Confirm the medication, concentration, dose, route, lot number, expiration, and order plan match.",
+          "Use the sterile process defined by qualified medical guidance. Needles and syringes must be sterile, single-use, and single-person.",
+          "Never reuse sharps, syringes, or injection supplies across administrations or people."
         ]
       },
       {
-        title: "停止并求助",
+        title: "Stop and get help",
         emphasis: "danger",
         items: [
-          "药液浑浊、变色、包装破损、剂量无法确认或部位异常时不要记录为已给药。",
-          "出现剧痛、明显肿胀、麻木、发热、呼吸困难、皮疹或大量出血时应立即寻求医疗帮助。",
-          "锐器应按当地医疗废弃物或锐器盒要求处理，不放入普通可接触垃圾。"
+          "Do not record the dose as administered if the solution is cloudy, discolored, damaged, leaking, or otherwise cannot be verified.",
+          "Seek immediate medical help for severe pain, swelling, numbness, fever, breathing difficulty, rash, or significant bleeding.",
+          "Dispose of sharps according to local medical-waste requirements rather than standard household trash."
         ]
       }
     ]
