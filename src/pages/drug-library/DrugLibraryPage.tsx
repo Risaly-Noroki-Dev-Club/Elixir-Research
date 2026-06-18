@@ -1,16 +1,23 @@
-import { Database, FilePlus2, Search, ShieldAlert } from "lucide-react";
-import { useMemo, useState } from "react";
+﻿import { Database, FilePlus2, Search, ShieldAlert } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import type { ActionNotice, NotFoundContext } from "../../app/types";
 import { Panel } from "../../components/ui/Panel";
-import { StatusPill } from "../../components/ui/StatusPill";
-import { drugRegistry, searchRegistry } from "../../features/drug-data/registry";
-import type { DrugRegistryEntry } from "../../features/drug-data/types";
+import {
+  createRegistryDraftFromOpenFdaCandidate,
+  searchOpenFdaCatalog
+} from "../../features/drug-data/openFdaCatalog";
+import { persistDrugRegistryDraftEntry } from "../../features/drug-data/localDrafts";
+import { resetDrugRegistryDatabase, searchDrugRegistry } from "../../features/drug-data/registry";
+import type { DrugRegistryEntry, DrugRegistrySearchResult, OpenFdaCatalogSearchResult } from "../../features/drug-data/types";
 import type { LongTermMedicationTemplate, MedicationEvent } from "../../features/medication/types";
 import { useLocalStorageState } from "../../hooks/useLocalStorageState";
-import { DrugRowActions } from "./components/DrugRowActions";
-import { PlanSelector } from "./components/PlanSelector";
+import { useI18n } from "../../i18n/I18nProvider";
+import { DrugLibraryToolbar, type DrugLibraryStatusFilter } from "./components/DrugLibraryToolbar";
+import { LocalRegistryTable } from "./components/LocalRegistryTable";
+import { OpenFdaSearchPanel } from "./components/OpenFdaSearchPanel";
 
 interface DrugLibraryPageProps {
+  registryCount: number;
   selectedDrug: DrugRegistryEntry;
   medicationEvents: MedicationEvent[];
   longTermTemplates: LongTermMedicationTemplate[];
@@ -20,9 +27,11 @@ interface DrugLibraryPageProps {
   onDeleteHistory: (entry: DrugRegistryEntry) => void;
   onNotFound: (context: NotFoundContext) => void;
   onNotify: (notice: Omit<ActionNotice, "id">) => void;
+  onRegistryRefresh: (entryId?: string) => void;
 }
 
 export function DrugLibraryPage({
+  registryCount,
   selectedDrug,
   medicationEvents,
   longTermTemplates,
@@ -31,20 +40,113 @@ export function DrugLibraryPage({
   onOpenHistory,
   onDeleteHistory,
   onNotFound,
-  onNotify
+  onNotify,
+  onRegistryRefresh
 }: DrugLibraryPageProps) {
+  const { t } = useI18n();
   const [query, setQuery] = useLocalStorageState("er:v1:drug-query", "");
+  const [statusFilter, setStatusFilter] = useLocalStorageState<DrugLibraryStatusFilter>("er:v1:drug-status-filter", "all");
   const [newGenericName, setNewGenericName] = useState("");
   const [newBrandName, setNewBrandName] = useState("");
-  const filteredRegistry = useMemo(() => searchRegistry(query), [query]);
+  const [searchResult, setSearchResult] = useState<DrugRegistrySearchResult | null>(null);
+  const [isSearching, setIsSearching] = useState(true);
+  const [searchError, setSearchError] = useState<string | null>(null);
+  const [remoteResult, setRemoteResult] = useState<OpenFdaCatalogSearchResult | null>(null);
+  const [isRemoteSearching, setIsRemoteSearching] = useState(false);
+  const [remoteError, setRemoteError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadRegistry() {
+      setIsSearching(true);
+
+      try {
+        const result = await searchDrugRegistry(query);
+        if (cancelled) return;
+
+        setSearchResult(result);
+        setSearchError(null);
+      } catch (error) {
+        if (cancelled) return;
+
+        setSearchResult(null);
+        setSearchError(error instanceof Error ? error.message : t("app.unknownRegistryError"));
+      } finally {
+        if (!cancelled) {
+          setIsSearching(false);
+        }
+      }
+    }
+
+    void loadRegistry();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [query, t]);
+
+  useEffect(() => {
+    if (!query.trim()) {
+      setRemoteResult(null);
+      setRemoteError(null);
+      setIsRemoteSearching(false);
+      return;
+    }
+
+    let cancelled = false;
+    const timer = window.setTimeout(async () => {
+      setIsRemoteSearching(true);
+      try {
+        const result = await searchOpenFdaCatalog(query);
+        if (cancelled) return;
+        setRemoteResult(result);
+        setRemoteError(null);
+      } catch (error) {
+        if (cancelled) return;
+        setRemoteResult(null);
+        setRemoteError(error instanceof Error ? error.message : "openFDA search failed");
+      } finally {
+        if (!cancelled) {
+          setIsRemoteSearching(false);
+        }
+      }
+    }, 280);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+  }, [query]);
+
+  const filteredRegistry = useMemo(() => {
+    const entries = searchResult?.entries ?? [];
+    return entries.filter((entry) => {
+      if (statusFilter === "all") return true;
+      if (statusFilter === "controlled-only") return entry.controlled;
+      return entry.reviewStatus === statusFilter;
+    });
+  }, [searchResult, statusFilter]);
 
   function selectDrug(entry: DrugRegistryEntry) {
     onSelectDrug(entry);
     onNotify({
-      title: "药物选项卡已激活",
-      detail: `${entry.genericNameZh} · ${entry.brandNames[0] ?? entry.genericName}`,
+      title: t("drugLibrary.cardFocused"),
+      detail: `${entry.genericNameZh} / ${entry.brandNames[0] ?? entry.genericName}`,
       tone: "info"
     });
+  }
+
+  function addOpenFdaCandidate(candidate: OpenFdaCatalogSearchResult["candidates"][number]) {
+    const draft = createRegistryDraftFromOpenFdaCandidate(candidate);
+    persistDrugRegistryDraftEntry(draft);
+    resetDrugRegistryDatabase();
+    onNotify({
+      title: t("drugLibrary.addedDraft"),
+      detail: t("drugLibrary.addedDraftDetail", { brand: candidate.brandName, generic: candidate.genericName }),
+      tone: "success"
+    });
+    onRegistryRefresh(draft.id);
   }
 
   return (
@@ -54,105 +156,70 @@ export function DrugLibraryPage({
           <Database size={32} />
         </div>
         <div>
-          <h1>药物库</h1>
-          <p>维护处方药、精神药品与 FDA label 映射，所有机器抽取的 PK 数值先进入待审核队列。</p>
+          <h1>{t("drugLibrary.title")}</h1>
+          <p>{t("drugLibrary.copy")}</p>
         </div>
         <div className="heading-actions">
           <button className="secondary-button" onClick={() => onNotFound({ module: "data-portability", action: "import_json", source: "page-heading" })}>
-            导入 JSON
+            {t("drugLibrary.importJson")}
           </button>
           <button className="secondary-button" onClick={() => onNotFound({ module: "data-portability", action: "export_json", source: "page-heading" })}>
-            导出
+            {t("drugLibrary.export")}
           </button>
           <button className="primary-button" onClick={() => onNotFound({ module: "drug-registry", action: "create_drug", source: "page-heading" })}>
             <FilePlus2 size={16} />
-            新增药物
+            {t("drugLibrary.addDrug")}
           </button>
         </div>
       </section>
 
-      <section className="toolbar-row">
-        <div className="filter-chip">筛选依据: 待审核</div>
-        <div className="table-search">
-          <Search size={17} />
-          <input value={query} placeholder="按通用名、商品名、中文别名搜索..." onChange={(event) => setQuery(event.target.value)} />
-          <button onClick={() => onNotFound({ module: "drug-registry", action: "advanced_search", source: "toolbar" })}>搜索</button>
-        </div>
-      </section>
+      <DrugLibraryToolbar
+        query={query}
+        statusFilter={statusFilter}
+        onQueryChange={setQuery}
+        onStatusFilterChange={setStatusFilter}
+        onSearchAction={() => onNotFound({ module: "drug-registry", action: "advanced_search", source: "toolbar" })}
+      />
 
-      <section className="drug-table-panel" aria-label="Drug registry table">
-        <div className="table-grid table-head">
-          <span>药物</span>
-          <span>状态</span>
-          <span>FDA 映射</span>
-          <span>方案</span>
-          <span />
-        </div>
-        {filteredRegistry.map((entry) => (
-          <div
-            key={entry.id}
-            className={entry.id === selectedDrug.id ? "table-grid table-row active" : "table-grid table-row"}
-            role="button"
-            tabIndex={0}
-            onClick={() => selectDrug(entry)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                selectDrug(entry);
-              }
-            }}
-          >
-            <span className="drug-cell">
-              <strong>{entry.brandNames[0] ?? entry.genericName}</strong>
-              <small>
-                {entry.genericNameZh} · {entry.genericName}
-              </small>
-            </span>
-            <span>
-              <StatusPill status={entry.reviewStatus} />
-            </span>
-            <span>
-              <button
-                className="table-link-button"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onNotFound({ module: "fda-label", action: "open_query_details", source: entry.id });
-                }}
-              >
-                openFDA query
-              </button>
-            </span>
-            <span>
-              <PlanSelector drug={entry} templates={longTermTemplates} onSaveTemplate={onSaveLongTermTemplate} onNotify={onNotify} />
-            </span>
-            <span className="row-menu">
-              <DrugRowActions
-                drug={entry}
-                historyCount={medicationEvents.filter((event) => event.drugId === entry.id).length}
-                onOpenHistory={onOpenHistory}
-                onDeleteHistory={onDeleteHistory}
-                onNotify={onNotify}
-              />
-            </span>
-          </div>
-        ))}
-      </section>
+      <LocalRegistryTable
+        selectedDrugId={selectedDrug.id}
+        entries={filteredRegistry}
+        medicationEvents={medicationEvents}
+        longTermTemplates={longTermTemplates}
+        searchResult={searchResult}
+        isSearching={isSearching}
+        searchError={searchError}
+        onSelectDrug={selectDrug}
+        onOpenHistory={onOpenHistory}
+        onDeleteHistory={onDeleteHistory}
+        onSaveLongTermTemplate={onSaveLongTermTemplate}
+        onOpenMapping={onNotFound}
+        onNotify={onNotify}
+      />
 
-      <div className="item-count">{filteredRegistry.length} 个项目</div>
+      <div className="item-count">{t("drugLibrary.resultsCount", { count: filteredRegistry.length })}</div>
 
-      <section className="detail-grid">
-        <Panel title="新增药物" icon={<FilePlus2 size={17} />}>
+      <OpenFdaSearchPanel
+        query={query}
+        result={remoteResult}
+        isSearching={isRemoteSearching}
+        error={remoteError}
+        onAddCandidate={addOpenFdaCandidate}
+      />
+
+      <section className="detail-grid detail-grid-library">
+        <Panel title={t("drugLibrary.addPanel.title")} icon={<FilePlus2 size={17} />}>
           <div className="form-grid">
             <label>
-              <span>通用名</span>
-              <input value={newGenericName} placeholder="例如 methylphenidate hydrochloride" onChange={(event) => setNewGenericName(event.target.value)} />
+              <span>{t("drugLibrary.addPanel.genericName")}</span>
+              <input value={newGenericName} placeholder={t("drugLibrary.addPanel.genericPlaceholder")} onChange={(event) => setNewGenericName(event.target.value)} />
             </label>
             <label>
-              <span>商品名</span>
-              <input value={newBrandName} placeholder="例如 Concerta" onChange={(event) => setNewBrandName(event.target.value)} />
+              <span>{t("drugLibrary.addPanel.brandName")}</span>
+              <input value={newBrandName} placeholder={t("drugLibrary.addPanel.brandPlaceholder")} onChange={(event) => setNewBrandName(event.target.value)} />
             </label>
             <label>
-              <span>剂型</span>
+              <span>{t("drugLibrary.addPanel.formulation")}</span>
               <select defaultValue="extended-release tablet">
                 <option>extended-release tablet</option>
                 <option>immediate-release tablet</option>
@@ -161,35 +228,38 @@ export function DrugLibraryPage({
               </select>
             </label>
             <label>
-              <span>审核级别</span>
-              <select defaultValue="clinical-review-required">
-                <option>clinical-review-required</option>
+              <span>{t("drugLibrary.addPanel.reviewStatus")}</span>
+              <select defaultValue="needs-review">
                 <option>needs-review</option>
                 <option>reviewed</option>
+                <option>rejected</option>
               </select>
             </label>
           </div>
           <button className="wide-primary" onClick={() => onNotFound({ module: "drug-registry", action: "queue_mapping_review", source: "add-drug-panel" })}>
-            加入待审核映射
+            {t("drugLibrary.addPanel.queueReview")}
           </button>
         </Panel>
 
-        <Panel title="FDA 搜索" icon={<Search size={17} />}>
-          <p className="panel-copy">当前药物先通过 curated 映射表解析，再拉取 openFDA label。抽取结果不会直接进入曲线模型。</p>
-          <code className="query-code">{selectedDrug.openFdaQuery}</code>
+        <Panel title={t("drugLibrary.fdaPanel.title")} icon={<Search size={17} />}>
+          <p className="panel-copy">{t("drugLibrary.fdaPanel.copy")}</p>
+          <code className="query-code">search term: {selectedDrug.openFda.searchTerm}</code>
+          <code className="query-code">ndc exact: {selectedDrug.openFda.ndcExactQuery}</code>
+          <code className="query-code">ndc loose: {selectedDrug.openFda.ndcLooseQuery}</code>
+          <code className="query-code">label: {selectedDrug.openFda.labelQuery}</code>
           <div className="button-row">
             <button className="secondary-link" onClick={() => onNotFound({ module: "fda-label", action: "preview_openfda", source: selectedDrug.id })}>
-              openFDA preview
+              {t("drugLibrary.fdaPreview")}
             </button>
             <button className="secondary-button" onClick={() => onNotFound({ module: "fda-label", action: "fetch_label", source: selectedDrug.id })}>
-              拉取 label
+              {t("drugLibrary.fetchLabel")}
             </button>
           </div>
         </Panel>
 
-        <Panel title="安全与提醒" icon={<ShieldAlert size={17} />}>
-          <p className="panel-copy">{selectedDrug.controlled ? "受控药物默认进入二次确认与临床审查级别。" : "常规药物仍保留本地确认、历史记录与提醒策略。"}</p>
-          <p className="panel-copy">当前注册表共 {drugRegistry.length} 个种子药物，方案列可直接保存长期用药模板。</p>
+        <Panel title={t("drugLibrary.safetyPanel.title")} icon={<ShieldAlert size={17} />}>
+          <p className="panel-copy">{selectedDrug.controlled ? t("drugLibrary.safetyPanel.controlled") : t("drugLibrary.safetyPanel.standard")}</p>
+          <p className="panel-copy">{t("drugLibrary.safetyPanel.seedCount", { count: registryCount })}</p>
         </Panel>
       </section>
     </>

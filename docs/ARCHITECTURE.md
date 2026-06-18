@@ -1,50 +1,41 @@
-# Architecture
+﻿# Architecture
 
-## Recommended Stack
+## Current Stack
 
-Frontend:
+Frontend runtime:
 
 - React + TypeScript + Vite
-- CSS variables plus lightweight component primitives
-- Recharts or custom SVG charting; prototype uses custom SVG to keep the first build small
-- IndexedDB for larger local caches later; localStorage only for prototype settings
-- PWA manifest and service worker in the next iteration
+- Embedded SQLite via `sql.js` + WASM for local drug registry and mapping search
+- JSON-backed i18n catalogs with English source copy and locale overlays
+- Custom CSS variable system and lightweight component primitives
 
-Backend:
+Data runtime:
 
-- Netlify Functions for openFDA proxy/cache refresh, share thumbnail rendering hooks, and auth callbacks
-- Supabase Auth or Auth.js only when account sync becomes real
-- Postgres for account metadata and sync manifests if hosted sync is offered
-- WebDAV connector as an optional user-owned sync target
-
-Build/Deploy:
-
-- Netlify static deploy for the app
-- `netlify.toml` controls build, headers, HTTPS redirects, and SPA routing
-- Algorithm code remains in `src/features/pk-engine`
+- Local-first registry boot from SQL seed assets in `src/features/drug-data`
+- DoseLab-derived alias mapping compiled into SQLite seed SQL
+- Client-side openFDA search fallback only after local alias resolution
+- LocalStorage for user preferences, medication drafts, and draft registry additions
 
 ## High-Level Boundaries
 
-- `src/features/pk-engine`: deterministic pharmacokinetic simulation and derived metrics
-- `src/features/drug-data`: normalized drug profile types and source provenance
-- `src/features/interactions`: rule-based interaction risk checks
-- `src/features/privacy`: vault, export, import, and future WebAuthn/passkey hooks
-- `src/features/medication`: course tracker, dose accumulation, and medication reminder modules
-- `src/ui`: shared view primitives and styling
-- `src/app`: composition, route shells, state orchestration
+- `src/app`: application shell, navigation, view orchestration
+- `src/features/drug-data`: SQL seed assets, mapping resolution, openFDA search adapters
+- `src/features/quick-search`: locale-aware module search index and matching engine
+- `src/features/pk-engine`: deterministic pharmacokinetic simulation logic
+- `src/features/medication`: course tracking, reminders, templates, dose history
+- `src/components`: reusable UI and console shell primitives
+- `src/pages`: page-level composition modules assembled from smaller feature components
 
-## Backend Boundary
+## Runtime Search Path
 
-No PK calculation should require backend availability. Backend services may fetch source data, verify accounts, render server-side assets, or sync encrypted payloads, but the user-visible chart should continue working offline.
+1. Query embedded SQLite registry.
+2. Resolve multilingual aliases in `drug_name_mapping_alias`.
+3. If needed, map to canonical English name.
+4. Query openFDA NDC with reviewed search terms.
+5. Save new candidates as local draft registry rows before any downstream use.
 
-The first backend-facing module is `netlify/functions/fda-label-search.ts`. It proxies openFDA label search and returns extracted PK fact candidates with review status. These candidates are not model parameters until curated.
+## Non-Goals For This Build
 
-## Cross-Platform Path
-
-1. Web/PWA is canonical.
-2. Capacitor wraps the app for mobile.
-3. Native bridges only expose platform-specific value:
-   - Android Monet dynamic color
-   - biometric/passkey unlock
-   - local notifications
-   - widgets
+- No server dependency for local registry or mapping search.
+- No silent promotion from openFDA candidate to reviewed PK model.
+- No giant page modules that mix seed data, search logic, and full UI layout in one file.

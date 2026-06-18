@@ -1,6 +1,7 @@
 import type { MedicationEvent } from "./types";
 
 const HOUR_IN_MS = 3_600_000;
+type SupportedLocale = "en" | "zh-Hans" | "zh-Hant" | "ja";
 
 export function formatDatetimeLocal(date: Date) {
   const offsetMs = date.getTimezoneOffset() * 60 * 1000;
@@ -21,13 +22,18 @@ export function mergeDatetimeLocal(datePart: string, timePart: string) {
   return `${datePart}T${(timePart || "00:00").slice(0, 5)}`;
 }
 
-export function formatMedicationTime(value: string) {
-  return new Intl.DateTimeFormat("zh-CN", {
+export function formatMedicationTime(value: string, locale: SupportedLocale = "en") {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return "--";
+  }
+
+  return new Intl.DateTimeFormat(resolveIntlLocale(locale), {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit"
-  }).format(new Date(value));
+  }).format(date);
 }
 
 export function getLatestMedicationEventTime(events: MedicationEvent[], fallback = new Date()) {
@@ -50,4 +56,11 @@ export function getHoursBetween(startTime: string, endTime: string | Date) {
   }
 
   return (endMs - startMs) / HOUR_IN_MS;
+}
+
+function resolveIntlLocale(locale: SupportedLocale) {
+  if (locale === "zh-Hans") return "zh-CN";
+  if (locale === "zh-Hant") return "zh-TW";
+  if (locale === "ja") return "ja-JP";
+  return "en-US";
 }

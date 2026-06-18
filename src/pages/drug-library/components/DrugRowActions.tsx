@@ -1,7 +1,8 @@
-import { MoreVertical } from "lucide-react";
+﻿import { MoreVertical } from "lucide-react";
 import { useState } from "react";
 import type { ActionNotice } from "../../../app/types";
 import type { DrugRegistryEntry } from "../../../features/drug-data/types";
+import { useI18n } from "../../../i18n/I18nProvider";
 
 interface DrugRowActionsProps {
   drug: DrugRegistryEntry;
@@ -12,11 +13,12 @@ interface DrugRowActionsProps {
 }
 
 export function DrugRowActions({ drug, historyCount, onOpenHistory, onDeleteHistory, onNotify }: DrugRowActionsProps) {
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
 
   return (
     <div className="row-action-menu" onClick={(event) => event.stopPropagation()}>
-      <button className="row-menu-button" onClick={() => setOpen((current) => !current)} title="更多操作" aria-expanded={open}>
+      <button className="row-menu-button" onClick={() => setOpen((current) => !current)} title={t("drugLibrary.actions.more")} aria-expanded={open}>
         <MoreVertical size={18} />
       </button>
       {open ? (
@@ -26,15 +28,15 @@ export function DrugRowActions({ drug, historyCount, onOpenHistory, onDeleteHist
             onClick={() => {
               setOpen(false);
               onNotify({
-                title: "历史选项卡已触发",
-                detail: `查看 ${drug.genericNameZh} 的用药历史`,
+                title: t("drugLibrary.actions.historyOpened"),
+                detail: t("drugLibrary.actions.historyOpenedDetail", { drug: drug.genericNameZh }),
                 tone: "info"
               });
               onOpenHistory(drug);
             }}
           >
-            查看历史
-            <span>{historyCount} 条记录</span>
+            {t("drugLibrary.actions.viewHistory")}
+            <span>{t("drugLibrary.actions.records", { count: historyCount })}</span>
           </button>
           <button
             type="button"
@@ -42,15 +44,15 @@ export function DrugRowActions({ drug, historyCount, onOpenHistory, onDeleteHist
             onClick={() => {
               setOpen(false);
               onNotify({
-                title: "历史选项卡已触发",
-                detail: `删除 ${drug.genericNameZh} 的 ${historyCount} 条历史记录`,
+                title: t("drugLibrary.actions.historyDeleteRequested"),
+                detail: t("drugLibrary.actions.historyDeleteDetail", { drug: drug.genericNameZh, count: historyCount }),
                 tone: "danger"
               });
               onDeleteHistory(drug);
             }}
           >
-            删除历史数据
-            <span>仅删除该药物记录</span>
+            {t("drugLibrary.actions.deleteHistory")}
+            <span>{t("drugLibrary.actions.deleteHistoryHint")}</span>
           </button>
         </div>
       ) : null}

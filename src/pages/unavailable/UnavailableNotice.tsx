@@ -1,10 +1,13 @@
-import { AlertTriangle } from "lucide-react";
+﻿import { AlertTriangle } from "lucide-react";
+import { useI18n } from "../../i18n/I18nProvider";
 
 export function UnavailableNotice({ label }: { label: string }) {
+  const { t } = useI18n();
+
   return (
     <div className="unavailable-notice">
       <AlertTriangle size={16} />
-      <span>{label} 当前是导航占位，功能 N/A。药物库仍可继续使用。</span>
+      <span>{t("app.notImplemented", { label })}</span>
     </div>
   );
 }

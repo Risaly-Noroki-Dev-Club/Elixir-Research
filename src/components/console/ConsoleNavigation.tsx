@@ -1,6 +1,7 @@
-import {
+﻿import {
   Activity,
   AlertTriangle,
+  BookOpenText,
   ChevronRight,
   Database,
   FileText,
@@ -12,10 +13,12 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import type { AppView } from "../../app/types";
+import { useI18n } from "../../i18n/I18nProvider";
 
 interface ConsoleNavigationProps {
   activeNav: string;
   openGroups: Record<string, boolean>;
+  onQuickSearch: () => void;
   onToggleGroup: (label: string) => void;
   onNavigate: (label: string, nextView: AppView) => void;
   onUnavailable: (label: string) => void;
@@ -24,73 +27,100 @@ interface ConsoleNavigationProps {
 export function ConsoleNavigation({
   activeNav,
   openGroups,
+  onQuickSearch,
   onToggleGroup,
   onNavigate,
   onUnavailable
 }: ConsoleNavigationProps) {
-  const drugLibraryActive = ["药物库", "药物列表", "FDA 数据", "Label 搜索", "PK 参数抽取", "映射审核"].includes(activeNav);
-  const medicationActive = ["用药", "疗程追踪器", "用药提醒"].includes(activeNav);
+  const { t } = useI18n();
+  const drugLibraryActive = ["Drug Library", "Library", "FDA Data", "Label Search", "PK Extraction", "Mapping Review"].includes(activeNav);
+  const medicationActive = ["Medication", "Course Tracker", "Medication Reminders"].includes(activeNav);
+  const helpActive = ["Help", "Help Overview", "Help Drug Library", "Help Course Tracker", "Help PK Preview", "Help Data & Settings"].includes(activeNav);
 
   return (
     <>
-      <button className="quick-search" type="button" onClick={() => onUnavailable("快速搜索")}>
+      <button className="quick-search" type="button" onClick={onQuickSearch}>
         <Search size={16} />
-        <span>快速搜索...</span>
+        <span>{t("nav.quickSearch")}</span>
         <kbd>Ctrl K</kbd>
       </button>
 
       <nav className="nav-stack">
-        <NavItem icon={<Home size={16} />} label="账户首页" active={activeNav === "账户首页"} onClick={() => onUnavailable("账户首页")} />
+        <NavItem icon={<Home size={16} />} label={t("nav.accountHome")} active={activeNav === "Account Home"} onClick={() => onUnavailable("Account Home")} />
         <NavGroup
-          label="药物库"
+          label={t("nav.drugLibrary")}
           icon={<Database size={16} />}
-          open={Boolean(openGroups["药物库"])}
+          open={Boolean(openGroups["Drug Library"])}
           active={drugLibraryActive}
-          onToggle={() => onToggleGroup("药物库")}
+          onToggle={() => onToggleGroup("Drug Library")}
           complete
         >
-          <button className={activeNav === "药物列表" ? "subnav active" : "subnav"} onClick={() => onNavigate("药物列表", "drug-library")}>
-            药物列表
+          <button className={activeNav === "Library" ? "subnav active" : "subnav"} onClick={() => onNavigate("Library", "drug-library")}>
+            {t("nav.library")}
           </button>
           <NestedNavGroup
-            label="FDA 数据"
-            open={Boolean(openGroups["FDA 数据"])}
-            active={["FDA 数据", "Label 搜索", "PK 参数抽取"].includes(activeNav)}
-            onToggle={() => onToggleGroup("FDA 数据")}
+            label={t("nav.fdaData")}
+            open={Boolean(openGroups["FDA Data"])}
+            active={["FDA Data", "Label Search", "PK Extraction"].includes(activeNav)}
+            onToggle={() => onToggleGroup("FDA Data")}
           >
-            <button className={activeNav === "Label 搜索" ? "subnav nested active" : "subnav nested"} onClick={() => onUnavailable("Label 搜索")}>
-              Label 搜索 <span>N/A</span>
+            <button className={activeNav === "Label Search" ? "subnav nested active" : "subnav nested"} onClick={() => onUnavailable("Label Search")}>
+              {t("nav.labelSearch")} <span>{t("common.notAvailable")}</span>
             </button>
-            <button className={activeNav === "PK 参数抽取" ? "subnav nested active" : "subnav nested"} onClick={() => onUnavailable("PK 参数抽取")}>
-              PK 参数抽取 <span>N/A</span>
+            <button className={activeNav === "PK Extraction" ? "subnav nested active" : "subnav nested"} onClick={() => onUnavailable("PK Extraction")}>
+              {t("nav.pkExtraction")} <span>{t("common.notAvailable")}</span>
             </button>
           </NestedNavGroup>
-          <button className={activeNav === "映射审核" ? "subnav active" : "subnav"} onClick={() => onUnavailable("映射审核")}>
-            映射审核 <span>N/A</span>
+          <button className={activeNav === "Mapping Review" ? "subnav active" : "subnav"} onClick={() => onUnavailable("Mapping Review")}>
+            {t("nav.mappingReview")} <span>{t("common.notAvailable")}</span>
           </button>
         </NavGroup>
         <NavGroup
-          label="用药"
+          label={t("nav.medication")}
           icon={<ListChecks size={16} />}
-          open={Boolean(openGroups["用药"])}
+          open={Boolean(openGroups["Medication"])}
           active={medicationActive}
-          onToggle={() => onToggleGroup("用药")}
+          onToggle={() => onToggleGroup("Medication")}
           complete
         >
-          <button className={activeNav === "疗程追踪器" ? "subnav active" : "subnav"} onClick={() => onNavigate("疗程追踪器", "course-tracker")}>
-            疗程追踪器
+          <button className={activeNav === "Course Tracker" ? "subnav active" : "subnav"} onClick={() => onNavigate("Course Tracker", "course-tracker")}>
+            {t("nav.courseTracker")}
           </button>
-          <button className={activeNav === "用药提醒" ? "subnav active" : "subnav"} onClick={() => onNavigate("用药提醒", "medication-reminders")}>
-            用药提醒
+          <button className={activeNav === "Medication Reminders" ? "subnav active" : "subnav"} onClick={() => onNavigate("Medication Reminders", "medication-reminders")}>
+            {t("nav.medicationReminders")}
           </button>
         </NavGroup>
-        <SectionLabel label="Observe" />
-        <NavItem icon={<Activity size={16} />} label="PK 预览" active={activeNav === "PK 预览"} onClick={() => onUnavailable("PK 预览")} />
-        <NavItem icon={<AlertTriangle size={16} />} label="交互风险" active={activeNav === "交互风险"} onClick={() => onUnavailable("交互风险")} />
-        <SectionLabel label="构建" />
-        <NavItem icon={<Sparkles size={16} />} label="FDA 抽取" active={activeNav === "FDA 抽取"} onClick={() => onUnavailable("FDA 抽取")} />
-        <NavItem icon={<FileText size={16} />} label="报告模板" active={activeNav === "报告模板"} onClick={() => onUnavailable("报告模板")} />
-        <NavItem icon={<KeyRound size={16} />} label="隐私金钥" active={activeNav === "隐私金钥"} onClick={() => onUnavailable("隐私金钥")} />
+        <NavGroup
+          label={t("nav.help")}
+          icon={<BookOpenText size={16} />}
+          open={Boolean(openGroups["Help"])}
+          active={helpActive}
+          onToggle={() => onToggleGroup("Help")}
+          complete
+        >
+          <button className={activeNav === "Help Overview" ? "subnav active" : "subnav"} onClick={() => onNavigate("Help Overview", "help")}>
+            {t("nav.helpOverview")}
+          </button>
+          <button className={activeNav === "Help Drug Library" ? "subnav active" : "subnav"} onClick={() => onNavigate("Help Drug Library", "help")}>
+            {t("nav.helpDrugLibrary")}
+          </button>
+          <button className={activeNav === "Help Course Tracker" ? "subnav active" : "subnav"} onClick={() => onNavigate("Help Course Tracker", "help")}>
+            {t("nav.helpCourseTracker")}
+          </button>
+          <button className={activeNav === "Help PK Preview" ? "subnav active" : "subnav"} onClick={() => onNavigate("Help PK Preview", "help")}>
+            {t("nav.helpPkPreview")}
+          </button>
+          <button className={activeNav === "Help Data & Settings" ? "subnav active" : "subnav"} onClick={() => onNavigate("Help Data & Settings", "help")}>
+            {t("nav.helpDataOps")}
+          </button>
+        </NavGroup>
+        <SectionLabel label={t("nav.observe")} />
+        <NavItem icon={<Activity size={16} />} label={t("nav.pkPreview")} active={activeNav === "PK Preview"} onClick={() => onUnavailable("PK Preview")} />
+        <NavItem icon={<AlertTriangle size={16} />} label={t("nav.interactionRisk")} active={activeNav === "Interaction Risk"} onClick={() => onUnavailable("Interaction Risk")} />
+        <SectionLabel label={t("nav.build")} />
+        <NavItem icon={<Sparkles size={16} />} label={t("nav.fdaExtraction")} active={activeNav === "FDA Extraction"} onClick={() => onUnavailable("FDA Extraction")} />
+        <NavItem icon={<FileText size={16} />} label={t("nav.reportTemplates")} active={activeNav === "Report Templates"} onClick={() => onUnavailable("Report Templates")} />
+        <NavItem icon={<KeyRound size={16} />} label={t("nav.privacyKeys")} active={activeNav === "Privacy Keys"} onClick={() => onUnavailable("Privacy Keys")} />
       </nav>
     </>
   );

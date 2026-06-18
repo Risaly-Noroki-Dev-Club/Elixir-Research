@@ -1,61 +1,42 @@
-# Development Plan
+﻿# Development Plan
 
 ## Product North Star
 
-Elixir Research visualizes drug concentration over time so chronic-disease patients can understand timing, risk windows, and adherence patterns. The app must be fast, local-first, cross-platform, and explicit that it supports patient-clinician conversations rather than prescribing.
+Elixir Research helps users inspect medication timing, registry metadata, and PK context in a local-first workflow that stays explicit about review boundaries.
 
-## Phase 0: Foundation
+## Active Foundation Goals
 
-- Establish Vite + React + TypeScript web/PWA app deployable on Netlify.
-- Build a Material You-inspired UI system with dark/light themes, responsive layout, and web palette customization.
-- Keep PK algorithms local and deterministic.
-- Store user settings and dose events locally first.
-- Create docs that future agents can read before adding modules.
+- Keep the shell responsive on desktop and mobile.
+- Keep the drug registry embedded and searchable offline through SQLite + WASM.
+- Keep copy translatable through JSON locale catalogs.
+- Keep openFDA fallback behind local mapping resolution.
+- Keep feature modules split into small, testable files.
 
-## Phase 1: PK Core
+## Current Delivery Priorities
 
-- Define drug modules with versioned model metadata.
-- Support immediate-release, extended-release, delayed-release, depot, patch, and custom multi-input absorption models.
-- Add therapeutic window overlays, peak/trough detection, next-dose estimation, and threshold reminders.
-- Add calibration hooks for lab values without silently changing source parameters.
+### Registry and Mapping
 
-## Phase 2: Drug Data
+- Expand the SQL seed registry.
+- Sync reviewed aliases from DoseLab.
+- Preserve direct-search add flow through openFDA draft capture.
 
-- Pull openFDA label data through a backend fetch/cache job, not from the client at every use.
-- Normalize RxNorm, generic names, brand names, active ingredients, routes, dosage forms, warnings, and interaction keywords.
-- Maintain a large bilingual mapping table as data, not code.
-- Ship a compact local cache for common medicines and update it opportunistically.
+### UX and IA
 
-## Phase 3: Safety and Privacy
+- Keep quick search locale-aware.
+- Keep language switching lightweight and animated.
+- Keep page modules composed from feature components, not giant page files.
 
-- Interaction checking: start from high-risk rule modules, then expand with curated source provenance.
-- Add optional local vault unlock using passphrase/WebAuthn.
-- Add JSON import/export and signed export metadata.
-- Add PDF doctor report with "research visualization" disclaimers and provenance.
-- Do not introduce weird CAPTCHA. Prefer rate limits, passkeys, device attestation where appropriate, and server-side abuse scoring.
+### Safety and PK
 
-## Phase 4: Sync
-
-- Anonymous local-only mode remains first-class.
-- Optional account sync supports Google and Apple sign-in.
-- User-owned cloud sync should prefer WebDAV-compatible endpoints.
-- Hosted sync must be opt-in, encrypted client-side where feasible, and region-transparent.
-
-## Phase 5: Mobile and Native Surface
-
-- PWA first, then Capacitor for Android/iOS if platform APIs justify it.
-- Android: Material You dynamic color through native bridge.
-- iOS: system color and passkey/biometric integration through platform APIs.
-- Widgets and reminder notifications are native modules, not web-only hacks.
+- Maintain review gates between fetched source data and any PK model usage.
+- Expand reviewed profiles over time instead of inferring them automatically.
 
 ## Module Rule
 
-Every feature after Phase 0 must enter as a module with:
+Every substantial feature should ship with:
 
-- `module.manifest.ts`
-- typed input/output contracts
-- test fixtures
-- source/provenance notes
-- privacy and safety notes
-- versioned migration path if it stores data
-
+- a feature entry point
+- typed contracts
+- tests for search or transformation logic
+- documentation for schema or translator-facing rules when relevant
+- a migration path if persisted data shape changes

@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import type { ActionNotice } from "../../../app/types";
 import type { DrugRegistryEntry } from "../../../features/drug-data/types";
 import { buildLongTermTemplate, createTemplateDraft, validateTemplateDraft } from "../../../features/medication/templates";
 import type { LongTermMedicationTemplate, LongTermTemplateDraft, MedicationPlanKind } from "../../../features/medication/types";
+import { useI18n } from "../../../i18n/I18nProvider";
 
 interface PlanSelectorProps {
   drug: DrugRegistryEntry;
@@ -12,14 +13,15 @@ interface PlanSelectorProps {
 }
 
 export function PlanSelector({ drug, templates, onSaveTemplate, onNotify }: PlanSelectorProps) {
+  const { t } = useI18n();
   const existingTemplate = templates.find((template) => template.drugId === drug.id);
   const [planKind, setPlanKind] = useState<MedicationPlanKind>(existingTemplate ? "long-term" : "acute");
   const [editorOpen, setEditorOpen] = useState(false);
   const [draft, setDraft] = useState<LongTermTemplateDraft>(() => existingTemplateToDraft(existingTemplate) ?? createTemplateDraft(drug));
   const [error, setError] = useState("");
   const templateStatus = useMemo(
-    () => (existingTemplate ? `${existingTemplate.doseAmount} mg / ${existingTemplate.intervalHours}h` : "未存模板"),
-    [existingTemplate]
+    () => (existingTemplate ? `${existingTemplate.doseAmount} mg / ${existingTemplate.intervalHours}h` : t("drugLibrary.plan.noTemplate")),
+    [existingTemplate, t]
   );
 
   useEffect(() => {
@@ -41,8 +43,8 @@ export function PlanSelector({ drug, templates, onSaveTemplate, onNotify }: Plan
     if (kind === "acute") {
       setEditorOpen(false);
       onNotify({
-        title: "方案选项卡已激活",
-        detail: `${drug.genericNameZh} 已切换为按次记录`,
+        title: t("drugLibrary.plan.updated"),
+        detail: t("drugLibrary.plan.updatedDetail", { drug: drug.genericNameZh }),
         tone: "info"
       });
       return;
@@ -50,8 +52,8 @@ export function PlanSelector({ drug, templates, onSaveTemplate, onNotify }: Plan
 
     setEditorOpen(true);
     onNotify({
-      title: "长期用药编辑器已激活",
-      detail: `${drug.genericNameZh} 可编辑长期用药模板`,
+      title: t("drugLibrary.plan.opened"),
+      detail: t("drugLibrary.plan.openedDetail", { drug: drug.genericNameZh }),
       tone: "info"
     });
   }
@@ -61,7 +63,7 @@ export function PlanSelector({ drug, templates, onSaveTemplate, onNotify }: Plan
     if (validation) {
       setError(validation);
       onNotify({
-        title: "长期模板需要补全",
+        title: t("drugLibrary.plan.needsMoreData"),
         detail: validation,
         tone: "warning"
       });
@@ -74,15 +76,15 @@ export function PlanSelector({ drug, templates, onSaveTemplate, onNotify }: Plan
     setEditorOpen(false);
     setError("");
     onNotify({
-      title: "长期用药模板已激活",
-      detail: `${template.label} · ${template.doseAmount} ${template.doseUnit} / ${template.intervalHours}h`,
+      title: t("drugLibrary.plan.enabled"),
+      detail: `${template.label} / ${template.doseAmount} ${template.doseUnit} / ${template.intervalHours}h`,
       tone: "success"
     });
   }
 
   return (
     <div className="plan-selector" onClick={(event) => event.stopPropagation()}>
-      <div className="plan-tabs" role="tablist" aria-label={`${drug.genericNameZh} 用药方案`}>
+      <div className="plan-tabs" role="tablist" aria-label={t("drugLibrary.plan.medicationPlan", { drug: drug.genericNameZh })}>
         <button
           type="button"
           role="tab"
@@ -90,7 +92,7 @@ export function PlanSelector({ drug, templates, onSaveTemplate, onNotify }: Plan
           className={planKind === "acute" ? "active" : ""}
           onClick={() => selectPlan("acute")}
         >
-          一过性用药
+          {t("drugLibrary.plan.perDose")}
         </button>
         <button
           type="button"
@@ -99,37 +101,37 @@ export function PlanSelector({ drug, templates, onSaveTemplate, onNotify }: Plan
           className={planKind === "long-term" ? "active" : ""}
           onClick={() => selectPlan("long-term")}
         >
-          长期用药
+          {t("drugLibrary.plan.longTerm")}
         </button>
       </div>
-      <span className="plan-template-status">{planKind === "long-term" ? templateStatus : "按次记录"}</span>
+      <span className="plan-template-status">{planKind === "long-term" ? templateStatus : t("drugLibrary.plan.perDoseLogging")}</span>
       {planKind === "long-term" && editorOpen ? (
         <div className="plan-editor">
           <label>
-            <span>模板名</span>
+            <span>{t("drugLibrary.plan.templateLabel")}</span>
             <input value={draft.label} onChange={(event) => updateDraft("label", event.target.value)} />
           </label>
           <label>
-            <span>剂量 mg</span>
+            <span>{t("drugLibrary.plan.doseMg")}</span>
             <input value={draft.doseAmount} inputMode="decimal" onChange={(event) => updateDraft("doseAmount", event.target.value)} />
           </label>
           <label>
-            <span>间隔 h</span>
+            <span>{t("drugLibrary.plan.intervalHours")}</span>
             <input value={draft.intervalHours} inputMode="decimal" onChange={(event) => updateDraft("intervalHours", event.target.value)} />
           </label>
           <label>
-            <span>途径</span>
+            <span>{t("drugLibrary.plan.route")}</span>
             <select value={draft.route} onChange={(event) => updateDraft("route", event.target.value as LongTermTemplateDraft["route"])}>
-              <option value="oral">口服</option>
-              <option value="injection">注射</option>
+              <option value="oral">{t("drugLibrary.plan.oral")}</option>
+              <option value="injection">{t("drugLibrary.plan.injection")}</option>
             </select>
           </label>
           <label className="wide">
-            <span>剂型/备注</span>
+            <span>{t("drugLibrary.plan.formulationNote")}</span>
             <input value={draft.formulation} onChange={(event) => updateDraft("formulation", event.target.value)} />
           </label>
           <button type="button" className="secondary-button compact" onClick={saveEditedTemplate}>
-            保存并激活模板
+            {t("drugLibrary.plan.saveEnable")}
           </button>
           {error ? <p className="mini-error">{error}</p> : null}
         </div>
